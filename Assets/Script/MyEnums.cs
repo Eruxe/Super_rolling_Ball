@@ -1,0 +1,1 @@
+﻿public enum GAMESTATE { Menu, Play, Pause, Victory, Falling, TimeOut, GameOver, Joining}
