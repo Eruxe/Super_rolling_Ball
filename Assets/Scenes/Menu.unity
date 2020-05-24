@@ -40027,6 +40027,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &480450013 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5743106059888026176, guid: e10f3cbaabc6a2b4f9c3da4b57102303,
+    type: 3}
+  m_PrefabInstance: {fileID: 952505868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db40e6973a639a34288b4a20b7df7d12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &644064204
 Mesh:
   m_ObjectHideFlags: 0
@@ -43646,7 +43658,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612199848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 480450013}
+        m_MethodName: OnQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1612199848
 MonoBehaviour:
   m_ObjectHideFlags: 0
