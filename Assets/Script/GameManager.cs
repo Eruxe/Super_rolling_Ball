@@ -40,15 +40,13 @@ public class GameManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        while (!MenuManager.IsReady)
+        {
+            yield return null;
+        }
         ChangeState(initial_state);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void Play()
@@ -68,6 +66,26 @@ public class GameManager : MonoBehaviour
         ChangeState(GAMESTATE.Victory);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void Menu()
+    {
+        ChangeState(GAMESTATE.Menu);
+    }
+
+    public void ArcadeMenu()
+    {
+        ChangeState(GAMESTATE.ArcadeMenu);
+    }
+
+    public void PracticeMenu()
+    {
+        ChangeState(GAMESTATE.PracticeMenu);
+    }
+
+    public void OnQuit()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
 
     //Function that spawn the ball where you want
     public void SpawnBall(GameObject spawn)
@@ -76,6 +94,12 @@ public class GameManager : MonoBehaviour
         this.cam = Instantiate(this.cam,spawn.transform.position, spawn.transform.rotation);
         ball.SetCamera(cam);
         cam.SetBall(ball);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
 }

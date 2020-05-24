@@ -13,8 +13,9 @@ public class MenuManager : MonoBehaviour
     public static bool IsReady { get { return m_Instance.m_IsReady; } }
 
     //ELEMENT DE MENU
-    //[SerializeField] GameObject m_MenuPanel;
-    //[SerializeField] GameObject m_VictoryPanel;
+    [SerializeField] GameObject m_MenuPanel;
+    [SerializeField] GameObject m_MenuArcadePanel;
+    [SerializeField] GameObject m_MenuPracticePanel;
 
     List<GameObject> m_Panels = new List<GameObject>();
 
@@ -26,8 +27,9 @@ public class MenuManager : MonoBehaviour
         }
         else Destroy(gameObject);
 
-        //m_Panels.Add(m_MenuPanel);
-        //m_Panels.Add(m_VictoryPanel);
+        m_Panels.Add(m_MenuPanel);
+        m_Panels.Add(m_MenuArcadePanel);
+        m_Panels.Add(m_MenuPracticePanel);
     }
 
     // Start is called before the first frame update
@@ -47,7 +49,13 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case GAMESTATE.Menu:
-                //OpenPanel(m_MenuPanel);
+                OpenPanel(m_MenuPanel);
+                break;
+            case GAMESTATE.ArcadeMenu:
+                OpenPanel(m_MenuArcadePanel);
+                break;
+            case GAMESTATE.PracticeMenu:
+                OpenPanel(m_MenuPracticePanel);
                 break;
             case GAMESTATE.Play:
                 OpenPanel(null);
@@ -73,20 +81,6 @@ public class MenuManager : MonoBehaviour
         m_Panels.ForEach(item => item.SetActive(item == panel));
     }
 
-    public void OnArcades()
-    {
-
-    }
-
-    public void OnPractice()
-    {
-
-    }
-
-    public void OnQuit()
-    {
-        Debug.Log("Quit");
-    }
 
     // Update is called once per frame
     void Update()
