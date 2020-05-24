@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        while (!MenuManager.IsReady)
+        while (!MenuManager.IsReady || !LevelManager.IsReady)
         {
             yield return null;
         }
@@ -64,10 +64,11 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         ChangeState(GAMESTATE.Victory);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LevelManager.Instance.PlayNext();
     }
     public void Menu()
     {
+        SceneManager.LoadScene(0);
         ChangeState(GAMESTATE.Menu);
     }
 

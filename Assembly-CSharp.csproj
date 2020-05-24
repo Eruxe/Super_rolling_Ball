@@ -67,6 +67,7 @@
     <Compile Include="Assets\Script\CameraScript.cs" />
     <Compile Include="Assets\Script\FinishLine.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\LevelManager.cs" />
     <Compile Include="Assets\Script\MenuManager.cs" />
     <Compile Include="Assets\Script\MyEnums.cs" />
     <Compile Include="Assets\Script\Spawn.cs" />
