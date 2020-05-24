@@ -33,7 +33,7 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.GetState == GAMESTATE.Play)
+        if (GameManager.GetState == GAMESTATE.Play || GameManager.GetState == GAMESTATE.Practice)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");

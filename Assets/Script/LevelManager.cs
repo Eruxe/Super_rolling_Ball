@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     static int CurrentLevel;
     static List<List<int>> loadingList;
     static int CurrentList;
+    static bool isPractising = true;
 
     // Start is called before the first frame update
     private void Awake()
@@ -46,8 +47,17 @@ public class LevelManager : MonoBehaviour
         
     }
 
+    public void Practice(int list, int level)
+    {
+        isPractising = true;
+        CurrentList = list;
+        CurrentLevel = level;
+        SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
+    }
+
     public void BeginArcade(int list)
     {
+        isPractising = false;
         CurrentList = list;
         CurrentLevel = -1;
         this.PlayNext();
@@ -55,13 +65,21 @@ public class LevelManager : MonoBehaviour
 
     public void PlayNext()
     {
-        CurrentLevel++;
-        Debug.Log(CurrentLevel);
-        if (CurrentLevel < loadingList[CurrentList].Count && (CurrentList==0 || CurrentList == 1 || CurrentList == 2)) {
-            SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
+        if (isPractising)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        else{
-            GameManager.Instance.Menu();
+        else
+        {
+            CurrentLevel++;
+            if (CurrentLevel < loadingList[CurrentList].Count && (CurrentList == 0 || CurrentList == 1 || CurrentList == 2))
+            {
+                SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
+            }
+            else
+            {
+                GameManager.Instance.Menu();
+            }
         }
     }
 }

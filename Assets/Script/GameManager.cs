@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
-        ChangeState(initial_state);
+        ChangeState(m_state);
     }
 
     public void Play()
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         ChangeState(GAMESTATE.Victory);
         LevelManager.Instance.PlayNext();
     }
+
     public void Menu()
     {
         SceneManager.LoadScene(0);

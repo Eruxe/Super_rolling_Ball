@@ -64,22 +64,16 @@ public class MenuManager : MonoBehaviour
             case GAMESTATE.Practice:
                 OpenPanel(null);
                 break;
-            case GAMESTATE.Pause:
+            case GAMESTATE.Falling:
                 OpenPanel(null);
                 break;
             case GAMESTATE.Victory:
                 OpenPanel(null);
                 break;
-            case GAMESTATE.Falling:
-                OpenPanel(null);
-                break;
-            case GAMESTATE.TimeOut:
+            case GAMESTATE.Pause:
                 OpenPanel(null);
                 break;
             case GAMESTATE.GameOver:
-                OpenPanel(null);
-                break;
-            case GAMESTATE.Joining:
                 OpenPanel(null);
                 break;
         }
