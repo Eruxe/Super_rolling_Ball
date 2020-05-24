@@ -1,1 +1,1 @@
-﻿public enum GAMESTATE { Menu, ArcadeMenu, PracticeMenu, Play, Pause, Victory, Falling, TimeOut, GameOver, Joining}
+﻿public enum GAMESTATE { Menu, ArcadeMenu, PracticeMenu, Play, Practice, Pause, Victory, Falling, TimeOut, GameOver, Joining}
