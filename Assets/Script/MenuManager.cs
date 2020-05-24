@@ -13,8 +13,8 @@ public class MenuManager : MonoBehaviour
     public static bool IsReady { get { return m_Instance.m_IsReady; } }
 
     //ELEMENT DE MENU
-    [SerializeField] GameObject m_MenuPanel;
-    [SerializeField] GameObject m_VictoryPanel;
+    //[SerializeField] GameObject m_MenuPanel;
+    //[SerializeField] GameObject m_VictoryPanel;
 
     List<GameObject> m_Panels = new List<GameObject>();
 
@@ -47,7 +47,7 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case GAMESTATE.Menu:
-                OpenPanel(m_MenuPanel);
+                //OpenPanel(m_MenuPanel);
                 break;
             case GAMESTATE.Play:
                 OpenPanel(null);
@@ -55,7 +55,7 @@ public class MenuManager : MonoBehaviour
             case GAMESTATE.Pause:
                 break;
             case GAMESTATE.Victory:
-                OpenPanel(m_VictoryPanel);
+                //OpenPanel(m_VictoryPanel);
                 break;
             case GAMESTATE.Falling:
                 break;
@@ -71,6 +71,21 @@ public class MenuManager : MonoBehaviour
     void OpenPanel(GameObject panel)
     {
         m_Panels.ForEach(item => item.SetActive(item == panel));
+    }
+
+    public void OnArcades()
+    {
+
+    }
+
+    public void OnPractice()
+    {
+
+    }
+
+    public void OnQuit()
+    {
+        Debug.Log("Quit");
     }
 
     // Update is called once per frame
