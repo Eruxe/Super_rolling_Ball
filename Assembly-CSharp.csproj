@@ -63,12 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PathCreator\Examples\Scripts\GeneratePathExample.cs" />
-    <Compile Include="Assets\PathCreator\Examples\Scripts\PathFollower.cs" />
-    <Compile Include="Assets\PathCreator\Examples\Scripts\PathPlacer.cs" />
-    <Compile Include="Assets\PathCreator\Examples\Scripts\PathSceneTool.cs" />
-    <Compile Include="Assets\PathCreator\Examples\Scripts\PathSpawner.cs" />
-    <Compile Include="Assets\PathCreator\Examples\Scripts\RoadMeshCreator.cs" />
     <Compile Include="Assets\Script\Ball.cs" />
     <Compile Include="Assets\Script\CameraScript.cs" />
     <Compile Include="Assets\Script\FinishLine.cs" />
@@ -695,16 +689,7 @@
       <HintPath>C:/Users/Eruxe/Desktop/Super_Rolling_Ball/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="PathCreator.csproj">
-      <Project>{240C7A31-726E-5F94-0A4E-7CF7FD2C2151}</Project>
-      <Name>PathCreator</Name>
-    </ProjectReference>
-    <ProjectReference Include="PathCreatorEditor.csproj">
-      <Project>{512521D6-858D-2F5D-9BEF-2E50ACA3B3F5}</Project>
-      <Name>PathCreatorEditor</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
