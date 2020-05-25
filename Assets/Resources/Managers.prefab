@@ -2020,9 +2020,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c90bb798fadca408d5b10770fc5930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BeginnerList: 01000000020000000300000004000000
-  AdvancedList: 0500000006000000
-  ExpertList: 0700000008000000
+  BeginnerList: 010000000200000003000000040000000500000006000000
+  AdvancedList: 0700000008000000
+  ExpertList: 090000000a000000
 --- !u!1 &8182022347176920583
 GameObject:
   m_ObjectHideFlags: 0
