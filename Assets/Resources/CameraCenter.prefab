@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7252423151983115239}
-  - component: {fileID: 2480080823959883791}
   m_Layer: 0
   m_Name: PlayerCameraCenter
   m_TagString: Untagged
@@ -32,21 +31,6 @@ Transform:
   m_Father: {fileID: 7060170996899378501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2480080823959883791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118868740721605025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57a5797536a73944fb0371584016f4bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam_reactivity: 10
-  vertical_power: 15
-  horizontal_power: 15
 --- !u!1 &2857410719612455534
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,13 +55,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2857410719612455534}
-  m_LocalRotation: {x: 0.21384884, y: 0, z: 0, w: 0.9768668}
-  m_LocalPosition: {x: -0.04999995, y: 1.87, z: -2.57}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: -0.04999995, y: 2.58, z: -4.41}
   m_LocalScale: {x: 1, y: 1, z: 2.576938}
   m_Children: []
   m_Father: {fileID: 7060170996899378501}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 24.696, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!20 &7541870179668204089
 Camera:
   m_ObjectHideFlags: 0
@@ -199,13 +183,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7060170997198644328}
-  m_LocalRotation: {x: 0.21384582, y: -0, z: -0, w: 0.97686744}
-  m_LocalPosition: {x: -0.049999952, y: 1.8699999, z: -2.57}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: -0.049999952, y: 2.58, z: -4.41}
   m_LocalScale: {x: 1, y: 1, z: 2.5769384}
   m_Children: []
   m_Father: {fileID: 7252423151983115239}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 24.696001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!20 &7060170997198644330
 Camera:
   m_ObjectHideFlags: 0
