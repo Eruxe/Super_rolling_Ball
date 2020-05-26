@@ -40,15 +40,16 @@ public class CameraScript : MonoBehaviour
             yEuleur = Vector3.SignedAngle(Vector3.forward, Vector3.Scale(prb.velocity, new Vector3(1,0,1)), Vector3.up);
         }
 
-        Quaternion target_rotationY = Quaternion.Slerp(Quaternion.Euler(0,transform.rotation.eulerAngles[1],0),Quaternion.Euler(0, yEuleur, 0),recenter_speed*Time.deltaTime*(prb.velocity.magnitude));
-        Quaternion target_rotationXZ = Quaternion.Slerp(Quaternion.Euler(PlayerCenter.transform.rotation.eulerAngles[0],0,PlayerCenter.transform.rotation.eulerAngles[2]),Quaternion.Euler(xEuleur, 0, zEuleur),cam_reactivity* Time.deltaTime);
+        Quaternion target_rotationXYZ = Quaternion.Slerp(Quaternion.Euler(0,transform.rotation.eulerAngles[1],0),Quaternion.Euler(0, yEuleur, 0),recenter_speed*Time.deltaTime*(prb.velocity.magnitude));
+        
 
-        transform.rotation = target_rotationY;//* target_rotationXZ;
+        transform.rotation = target_rotationXYZ;//* target_rotationXZ;
 
         //The camera follow the player
         transform.position = player.transform.position;
 
-        PlayerCenter.transform.rotation = target_rotationY * target_rotationXZ;
+        Quaternion target_rotationXZ = Quaternion.Slerp(Quaternion.Euler(PlayerCenter.transform.rotation.eulerAngles[0], 0, PlayerCenter.transform.rotation.eulerAngles[2]), Quaternion.Euler(xEuleur, 0, zEuleur), cam_reactivity * Time.deltaTime);
+        PlayerCenter.transform.rotation = target_rotationXYZ * target_rotationXZ;
     }
 
     public void SetBall(Ball ball)
