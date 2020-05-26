@@ -22,6 +22,7 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = maxspeed;
+ 
         this.littlePushForward();
     }
 
