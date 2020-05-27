@@ -73,6 +73,11 @@ public class GameManager : MonoBehaviour
         ChangeState(GAMESTATE.Menu);
     }
 
+    public void MainMenu()
+    {
+        ChangeState(GAMESTATE.Menu);
+    }
+
     public void ArcadeMenu()
     {
         ChangeState(GAMESTATE.ArcadeMenu);
@@ -80,6 +85,7 @@ public class GameManager : MonoBehaviour
 
     public void PracticeMenu()
     {
+        MenuManager.Instance.ResetPractice();
         ChangeState(GAMESTATE.PracticeMenu);
     }
 

@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -17,6 +19,15 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject m_MenuPanel;
     [SerializeField] GameObject m_MenuArcadePanel;
     [SerializeField] GameObject m_MenuPracticePanel;
+
+    [SerializeField] GameObject SelectedLevelText;
+    [SerializeField] GameObject SelectedListText;
+    [SerializeField] GameObject NextButton;
+    [SerializeField] GameObject PreviousButton;
+
+    //Practice Variables
+    static int SelectedList = 0;
+    static int SelectedLevel = 0;
 
     List<GameObject> m_Panels = new List<GameObject>();
 
@@ -83,6 +94,56 @@ public class MenuManager : MonoBehaviour
     {
         m_Panels.ForEach(item => item.SetActive(item == panel));
         Background.SetActive(panel != null);
+    }
+
+    public void SelectList(int list)
+    {
+        SelectedList = list;
+        SelectedLevel = 0;
+        ChangeLevelSelected();
+    }
+
+    public void NextSelectLevel()
+    {
+        SelectedLevel++;
+        ChangeLevelSelected();
+    }
+
+    public void PreviousSelectLevel()
+    {
+        SelectedLevel--;
+        ChangeLevelSelected();
+    }
+
+    public void ChangeLevelSelected()
+    {
+        PreviousButton.GetComponent<Button>().interactable = SelectedLevel > 0;
+        NextButton.GetComponent<Button>().interactable = !LevelManager.Instance.IsLastInList(SelectedList,SelectedLevel);
+        switch (SelectedList)
+        {
+            case 0:
+                SelectedListText.GetComponent<TextMeshProUGUI>().text = "Beginner";
+                break;
+            case 1:
+                SelectedListText.GetComponent<TextMeshProUGUI>().text = "Advanced";
+                break;
+            case 2:
+                SelectedListText.GetComponent<TextMeshProUGUI>().text = "Expert";
+                break;
+        }
+        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = SelectedLevel.ToString();
+    }
+
+    public void ResetPractice()
+    {
+        SelectedLevel = 0;
+        SelectedList = 0;
+        ChangeLevelSelected();
+    }
+
+    public void PracticeLevel()
+    {
+        LevelManager.Instance.Practice(SelectedList, SelectedLevel);
     }
 
 

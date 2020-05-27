@@ -82,4 +82,10 @@ public class LevelManager : MonoBehaviour
             }
         }
     }
+
+    public bool IsLastInList(int list, int level)
+    {
+        return level >= loadingList[list].Count-1;
+    }
+
 }
