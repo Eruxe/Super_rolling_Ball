@@ -18,7 +18,7 @@ public class FinishLine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && (GameManager.GetState == GAMESTATE.Play || GameManager.GetState == GAMESTATE.Practice))
+        if(other.tag == "Player" && (GameManager.GetState == GAMESTATE.Play))
         {
             GameManager.Instance.Victory();
         }

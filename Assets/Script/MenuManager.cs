@@ -19,6 +19,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject m_MenuPanel;
     [SerializeField] GameObject m_MenuArcadePanel;
     [SerializeField] GameObject m_MenuPracticePanel;
+    [SerializeField] GameObject m_PausePanel;
 
     [SerializeField] GameObject SelectedLevelText;
     [SerializeField] GameObject SelectedListText;
@@ -42,6 +43,7 @@ public class MenuManager : MonoBehaviour
         m_Panels.Add(m_MenuPanel);
         m_Panels.Add(m_MenuArcadePanel);
         m_Panels.Add(m_MenuPracticePanel);
+        m_Panels.Add(m_PausePanel);
     }
 
     // Start is called before the first frame update
@@ -72,9 +74,6 @@ public class MenuManager : MonoBehaviour
             case GAMESTATE.Play:
                 OpenPanel(null);
                 break;
-            case GAMESTATE.Practice:
-                OpenPanel(null);
-                break;
             case GAMESTATE.Falling:
                 OpenPanel(null);
                 break;
@@ -82,7 +81,7 @@ public class MenuManager : MonoBehaviour
                 OpenPanel(null);
                 break;
             case GAMESTATE.Pause:
-                OpenPanel(null);
+                OpenPanel(m_PausePanel);
                 break;
             case GAMESTATE.GameOver:
                 OpenPanel(null);

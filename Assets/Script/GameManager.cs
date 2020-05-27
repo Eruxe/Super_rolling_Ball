@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Ball ball;
     [SerializeField] CameraScript cam;
 
+    //PAUSE
+    float pause;
+
     private void Awake()
     {
         if (!m_Instance)
@@ -53,6 +56,16 @@ public class GameManager : MonoBehaviour
     {
         ChangeState(GAMESTATE.Play);
         this.SpawnBall(GameObject.Find("Spawn"));
+    }
+
+    public void BackToPlay()
+    {
+        ChangeState(GAMESTATE.Play);
+    }
+
+    public void Pause()
+    {
+        ChangeState(GAMESTATE.Pause);
     }
 
     public void Falling()
@@ -107,7 +120,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (GameManager.GetState == GAMESTATE.Play)
+        {
+            pause = Input.GetAxisRaw("Jump");
+            if (pause != 0)
+            {
+                pause = 0;
+                ChangeState(GAMESTATE.Pause);
+            }
+        }
     }
 
 }

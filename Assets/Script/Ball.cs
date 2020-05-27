@@ -14,6 +14,9 @@ public class Ball : MonoBehaviour
     public CameraScript cam;
     private Rigidbody rb;
 
+    private Vector3 SavedVelocity;
+    private Vector3 SavedTorque;
+
     //EVENT
     public static event Action OnFalling;
 
@@ -34,7 +37,7 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.GetState == GAMESTATE.Play || GameManager.GetState == GAMESTATE.Practice)
+        if (GameManager.GetState == GAMESTATE.Play)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
@@ -47,6 +50,9 @@ public class Ball : MonoBehaviour
             {
                 GameManager.Instance.Falling();
             }
+        }
+        else
+        {
         }
     }
 
