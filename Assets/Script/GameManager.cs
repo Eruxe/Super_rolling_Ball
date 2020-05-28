@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     //EVENT
     public static event Action<GAMESTATE> OnGameStateChanged;
+    public static event Action Pausing;
+    public static event Action Resuming;
 
     //VARIABLES
     public int lives = 6;
@@ -23,9 +25,6 @@ public class GameManager : MonoBehaviour
     //BALL AND CAMERA
     [SerializeField] Ball ball;
     [SerializeField] CameraScript cam;
-
-    //PAUSE
-    float pause;
 
     private void Awake()
     {
@@ -55,16 +54,18 @@ public class GameManager : MonoBehaviour
     public void Play()
     {
         ChangeState(GAMESTATE.Play);
-        this.SpawnBall(GameObject.Find("Spawn"));
+        SpawnBall(GameObject.Find("Spawn"));
     }
 
     public void BackToPlay()
     {
+        if (Resuming != null) Resuming();
         ChangeState(GAMESTATE.Play);
     }
 
     public void Pause()
     {
+        if (Pausing != null) Pausing();
         ChangeState(GAMESTATE.Pause);
     }
 
@@ -122,11 +123,16 @@ public class GameManager : MonoBehaviour
     {
         if (GameManager.GetState == GAMESTATE.Play)
         {
-            pause = Input.GetAxisRaw("Jump");
-            if (pause != 0)
+            if (Input.GetKeyDown("space"))
             {
-                pause = 0;
-                ChangeState(GAMESTATE.Pause);
+                Pause();
+            }
+        }
+        else if(GameManager.GetState == GAMESTATE.Pause)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                BackToPlay();
             }
         }
     }

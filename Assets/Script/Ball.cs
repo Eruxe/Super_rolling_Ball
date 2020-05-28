@@ -14,8 +14,9 @@ public class Ball : MonoBehaviour
     public CameraScript cam;
     private Rigidbody rb;
 
-    private Vector3 SavedVelocity;
-    private Vector3 SavedTorque;
+    //Save Velocity for Pause
+    Vector3 SavedVelocity;
+    Vector3 SavedAngular;
 
     //EVENT
     public static event Action OnFalling;
@@ -25,8 +26,17 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.maxAngularVelocity = maxspeed;
- 
+
+        GameManager.Pausing += OnPause;
+        GameManager.Resuming += OnResume;
+
         this.littlePushForward();
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Pausing -= OnPause;
+        GameManager.Resuming -= OnResume;
     }
 
     // Update is called once per frame
@@ -37,8 +47,6 @@ public class Ball : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.GetState == GAMESTATE.Play)
-        {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");
 
@@ -46,14 +54,10 @@ public class Ball : MonoBehaviour
             Vector3 horizontalGravity = Vector3.Scale(cam.transform.right, new Vector3(moveHorizontal, 0, moveHorizontal)) * speed;
             Physics.gravity = Vector3.ClampMagnitude(new Vector3(0, -9.81f, 0) + verticalGravity + horizontalGravity, 9.81f) * gravity;
 
-            if (transform.position.y < -10)
+            if (transform.position.y < -10 && GameManager.GetState == GAMESTATE.Play)
             {
                 GameManager.Instance.Falling();
             }
-        }
-        else
-        {
-        }
     }
 
     public void SetCamera(CameraScript cam)
@@ -64,5 +68,19 @@ public class Ball : MonoBehaviour
     public void littlePushForward()
     {
         this.rb.AddForce(Vector3.ClampMagnitude(cam.transform.forward,0.1f));
+    }
+
+    public void OnPause()
+    {
+        SavedVelocity = rb.velocity;
+        SavedAngular = rb.angularVelocity;
+        rb.isKinematic = true;
+    }
+
+    public void OnResume()
+    {
+        rb.isKinematic = false;
+        rb.AddForce(SavedVelocity, ForceMode.VelocityChange);
+        rb.AddTorque(SavedAngular, ForceMode.VelocityChange);
     }
 }
