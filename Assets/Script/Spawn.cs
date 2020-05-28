@@ -12,6 +12,7 @@ public class Spawn : MonoBehaviour
     void Start()
     {
         GameManager.Instance.Play();
+        GameManager.time = 60;
         MenuManager.Instance.UpdateHUD();
     }
 

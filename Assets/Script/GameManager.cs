@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,8 +75,20 @@ public class GameManager : MonoBehaviour
     public void Falling()
     {
         ChangeState(GAMESTATE.Falling);
-        if (!LevelManager.isPractising) { 
-            lives-=1;
+        Restart();
+    }
+
+    public void Timout()
+    {
+        ChangeState(GAMESTATE.Timeout);
+        Restart();
+    }
+
+    public void Restart()
+    {
+        if (!LevelManager.isPractising)
+        {
+            lives -= 1;
             MenuManager.Instance.UpdateLives();
         }
         if (lives < 0)
@@ -151,6 +164,13 @@ public class GameManager : MonoBehaviour
             {
                 Pause();
             }
+            time -= Time.deltaTime;
+            if (time <= 0)
+            {
+                time = 0;
+                Timout();
+            }
+            MenuManager.Instance.UpdateTimes();
         }
         else if(GameManager.GetState == GAMESTATE.Pause)
         {

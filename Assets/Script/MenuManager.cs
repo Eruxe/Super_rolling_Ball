@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -83,6 +84,9 @@ public class MenuManager : MonoBehaviour
                 OpenPanel(m_PlayHUD, false);
                 break;
             case GAMESTATE.Falling:
+                OpenPanel(null, false);
+                break;
+            case GAMESTATE.Timeout:
                 OpenPanel(null, false);
                 break;
             case GAMESTATE.Victory:
@@ -172,7 +176,7 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateTimes()
     {
-        TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: "+GameManager.time;
+        TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: "+GameManager.time.ToString("f1");
     }
 
 
