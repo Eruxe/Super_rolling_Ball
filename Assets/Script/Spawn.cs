@@ -12,6 +12,7 @@ public class Spawn : MonoBehaviour
     void Start()
     {
         GameManager.Instance.Play();
+        MenuManager.Instance.UpdateHUD();
     }
 
     // Update is called once per frame
@@ -23,7 +24,6 @@ public class Spawn : MonoBehaviour
     //OLD LOGIC, Garder au cas ou
     public void SpawnBall()
     {
-        Debug.Log("test");
         ball=Instantiate(ball, this.transform.position, this.transform.rotation);
         cam=Instantiate(cam, this.transform.position, this.transform.rotation);
         ball.SetCamera(cam);

@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour
     public static event Action Resuming;
 
     //VARIABLES
-    public int lives = 6;
+    public static int lives=9;
+    public static float time=0;
+    public static int collectible=0;
 
     //BALL AND CAMERA
     [SerializeField] Ball ball;
@@ -72,7 +74,29 @@ public class GameManager : MonoBehaviour
     public void Falling()
     {
         ChangeState(GAMESTATE.Falling);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (!LevelManager.isPractising) { 
+            lives-=1;
+            MenuManager.Instance.UpdateLives();
+        }
+        if (lives < 0)
+        {
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+
+    public void OnCollect(int amount)
+    {
+        collectible += amount;
+        if (collectible >= 100)
+        {
+            lives++;
+            collectible -= 100;
+        }
+        MenuManager.Instance.UpdateCollectibles();
     }
 
     public void Victory()

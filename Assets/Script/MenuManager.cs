@@ -20,11 +20,18 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject m_MenuArcadePanel;
     [SerializeField] GameObject m_MenuPracticePanel;
     [SerializeField] GameObject m_PausePanel;
+    [SerializeField] GameObject m_PlayHUD;
 
+    //Practice menu
     [SerializeField] GameObject SelectedLevelText;
     [SerializeField] GameObject SelectedListText;
     [SerializeField] GameObject NextButton;
     [SerializeField] GameObject PreviousButton;
+
+    //HUD
+    [SerializeField] GameObject LivesText;
+    [SerializeField] GameObject TimeText;
+    [SerializeField] GameObject CollectiblesText;
 
     //Practice Variables
     static int SelectedList = 0;
@@ -44,6 +51,7 @@ public class MenuManager : MonoBehaviour
         m_Panels.Add(m_MenuArcadePanel);
         m_Panels.Add(m_MenuPracticePanel);
         m_Panels.Add(m_PausePanel);
+        m_Panels.Add(m_PlayHUD);
     }
 
     // Start is called before the first frame update
@@ -63,36 +71,36 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case GAMESTATE.Menu:
-                OpenPanel(m_MenuPanel);
+                OpenPanel(m_MenuPanel,true);
                 break;
             case GAMESTATE.ArcadeMenu:
-                OpenPanel(m_MenuArcadePanel);
+                OpenPanel(m_MenuArcadePanel, true);
                 break;
             case GAMESTATE.PracticeMenu:
-                OpenPanel(m_MenuPracticePanel);
+                OpenPanel(m_MenuPracticePanel, true);
                 break;
             case GAMESTATE.Play:
-                OpenPanel(null);
+                OpenPanel(m_PlayHUD, false);
                 break;
             case GAMESTATE.Falling:
-                OpenPanel(null);
+                OpenPanel(null, false);
                 break;
             case GAMESTATE.Victory:
-                OpenPanel(null);
+                OpenPanel(null, false);
                 break;
             case GAMESTATE.Pause:
-                OpenPanel(m_PausePanel);
+                OpenPanel(m_PausePanel, true);
                 break;
             case GAMESTATE.GameOver:
-                OpenPanel(null);
+                OpenPanel(null, false);
                 break;
         }
     }
 
-    void OpenPanel(GameObject panel)
+    void OpenPanel(GameObject panel,bool background)
     {
         m_Panels.ForEach(item => item.SetActive(item == panel));
-        Background.SetActive(panel != null);
+        Background.SetActive(background);
     }
 
     public void SelectList(int list)
@@ -143,6 +151,28 @@ public class MenuManager : MonoBehaviour
     public void PracticeLevel()
     {
         LevelManager.Instance.Practice(SelectedList, SelectedLevel);
+    }
+
+    //HUD updates
+    public void UpdateHUD()
+    {
+        UpdateLives();
+        UpdateCollectibles();
+        UpdateTimes();
+    }
+    public void UpdateLives()
+    {
+        LivesText.GetComponent<TextMeshProUGUI>().text = "LIVES: "+GameManager.lives;
+    }
+
+    public void UpdateCollectibles()
+    {
+        CollectiblesText.GetComponent<TextMeshProUGUI>().text = "BANANA: "+GameManager.collectible;
+    }
+
+    public void UpdateTimes()
+    {
+        TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: "+GameManager.time;
     }
 
 
