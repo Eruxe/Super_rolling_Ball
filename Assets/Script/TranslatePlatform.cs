@@ -24,18 +24,21 @@ public class TranslatePlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nearestDistance = Mathf.Max(Vector3.Distance(transform.position,initial_pos),Vector3.Distance(transform.position,goal));
-        slowForce = Mathf.Clamp((1-((nearestDistance * 100)/totalDistance/100))*20,0.01f,1);
+        if (GameManager.GetState == GAMESTATE.Play)
+        {
+            nearestDistance = Mathf.Max(Vector3.Distance(transform.position, initial_pos), Vector3.Distance(transform.position, goal));
+            slowForce = Mathf.Clamp((1 - ((nearestDistance * 100) / totalDistance / 100)) * 20, 0.01f, 1);
 
-        if (state)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, initial_pos, speed * Time.deltaTime * slowForce);
-            if (transform.position.Equals(initial_pos)) { state = false; }
-        }
-        else
-        {
-            transform.position = Vector3.MoveTowards(transform.position, goal, speed * Time.deltaTime * slowForce);
-            if (transform.position.Equals(goal)) { state = true; }
+            if (state)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, initial_pos, speed * Time.deltaTime * slowForce);
+                if (transform.position.Equals(initial_pos)) { state = false; }
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, goal, speed * Time.deltaTime * slowForce);
+                if (transform.position.Equals(goal)) { state = true; }
+            }
         }
     }
 }

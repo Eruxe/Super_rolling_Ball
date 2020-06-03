@@ -8,11 +8,13 @@ public class Spawn : MonoBehaviour
     private Ball ball;
     private CameraScript cam;
 
+    [SerializeField] float StartTime;
+
     // Start is called before the first frame update
     void Start()
     {
         GameManager.Instance.Play();
-        GameManager.time = 60;
+        GameManager.time = StartTime;
         MenuManager.Instance.UpdateHUD();
     }
 

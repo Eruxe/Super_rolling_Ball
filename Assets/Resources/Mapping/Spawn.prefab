@@ -43,5 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f0273a61fd56b45a316b38608cb3a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 7708722080331031839, guid: dab5ceca7966c054c800fe0735af6aa2, type: 3}
-  cam: {fileID: 7060170996899378498, guid: 88762d1699bc8714ea400a5a97938283, type: 3}
+  StartTime: 60
