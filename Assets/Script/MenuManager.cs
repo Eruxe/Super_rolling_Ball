@@ -179,11 +179,4 @@ public class MenuManager : MonoBehaviour
         TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: "+GameManager.time.ToString("f1");
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 }

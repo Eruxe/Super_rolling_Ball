@@ -41,12 +41,6 @@ public class LevelManager : MonoBehaviour
         m_IsReady = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Practice(int list, int level)
     {
         isPractising = true;
