@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        while (!MenuManager.IsReady || !LevelManager.IsReady)
+        while (!MenuManager.IsReady || !LevelManager.IsReady || !AudioManager.IsReady)
         {
             yield return null;
         }

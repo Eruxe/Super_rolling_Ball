@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeed: 0
-  ySpeed: 100
+  ySpeed: 250
   zSpeed: 0
 --- !u!1001 &8221935873363100104
 PrefabInstance:
