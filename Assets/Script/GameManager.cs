@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         if (collectible >= 100)
         {
             lives++;
+            MenuManager.Instance.UpdateLives();
             collectible -= 100;
         }
         MenuManager.Instance.UpdateCollectibles();

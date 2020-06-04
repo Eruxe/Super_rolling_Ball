@@ -50,7 +50,8 @@ public class LevelManager : MonoBehaviour
     public void Practice(int list, int level)
     {
         isPractising = true;
-        GameManager.lives = 99;
+        GameManager.lives = 42;
+        GameManager.collectible = 0;
         CurrentList = list;
         CurrentLevel = level;
         SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
@@ -60,6 +61,7 @@ public class LevelManager : MonoBehaviour
     {
         isPractising = false;
         GameManager.lives = 9;
+        GameManager.collectible = 0;
         CurrentList = list;
         CurrentLevel = -1;
         this.PlayNext();
@@ -69,6 +71,7 @@ public class LevelManager : MonoBehaviour
     {
         if (isPractising)
         {
+            GameManager.collectible = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
