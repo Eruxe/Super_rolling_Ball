@@ -27,6 +27,24 @@ EditorBuildSettings:
     path: Assets/Scenes/01 Easy/Modif/MovingPath.unity
     guid: 80602a2c6245b0f499e3903ec57166a4
   - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/ZigZag.unity
+    guid: 65dc5bd59c49d484a83c937e7ffd1a11
+  - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/Castle.unity
+    guid: 1b3d1eabba2c32c40bb7ad8956f95c18
+  - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/Snake.unity
+    guid: 6e5f572a2841d6f4fa5a636fa4e5e9fd
+  - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/WallRun.unity
+    guid: 330edff7e524209438ba1ad0dff8a394
+  - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/SmilingExam.unity
+    guid: b73aa0bd4ff7d32429e8cabf9bc50b08
+  - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/Shurikens.unity
+    guid: 04ba4d3a1ed2b6f49b0c66eaac89592d
+  - enabled: 1
     path: Assets/Scenes/03 Expert/Modif/Highway.unity
     guid: 9832d24b04d3ecd4c8db730fa243f8c7
   m_configObjects: {}
