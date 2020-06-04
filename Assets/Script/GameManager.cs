@@ -91,6 +91,10 @@ public class GameManager : MonoBehaviour
             lives -= 1;
             MenuManager.Instance.UpdateLives();
         }
+        else
+        {
+            collectible = 0;
+        }
         if (lives < 0)
         {
             SceneManager.LoadScene(0);

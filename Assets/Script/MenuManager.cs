@@ -171,7 +171,7 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateCollectibles()
     {
-        CollectiblesText.GetComponent<TextMeshProUGUI>().text = "BANANA: "+GameManager.collectible;
+        CollectiblesText.GetComponent<TextMeshProUGUI>().text = "PEPPER: "+GameManager.collectible;
     }
 
     public void UpdateTimes()
