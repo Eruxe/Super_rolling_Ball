@@ -43,6 +43,7 @@ public class LevelManager : MonoBehaviour
 
     public void Practice(int list, int level)
     {
+        AudioManager.Instance.Play("MenuClick");
         isPractising = true;
         GameManager.lives = 42;
         GameManager.collectible = 0;
@@ -54,6 +55,7 @@ public class LevelManager : MonoBehaviour
 
     public void BeginArcade(int list)
     {
+        AudioManager.Instance.Play("MenuClick");
         isPractising = false;
         GameManager.lives = 9;
         GameManager.collectible = 0;

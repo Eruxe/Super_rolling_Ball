@@ -86,6 +86,18 @@ MonoBehaviour:
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
+  - name: Menu
+    Clip: {fileID: 8300000, guid: 3337c5f1fc294544899f7f444d2b0eff, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
+  - name: MenuClick
+    Clip: {fileID: 8300000, guid: c208e428ae74f3649afad6267b2700b8, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}

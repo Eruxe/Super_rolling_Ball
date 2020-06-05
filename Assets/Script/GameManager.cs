@@ -125,29 +125,33 @@ public class GameManager : MonoBehaviour
 
     public void Menu()
     {
-        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.PlayMusic("Menu");
         SceneManager.LoadScene(0);
         ChangeState(GAMESTATE.Menu);
     }
 
     public void MainMenu()
     {
+        AudioManager.Instance.Play("MenuClick");
         ChangeState(GAMESTATE.Menu);
     }
 
     public void ArcadeMenu()
     {
+        AudioManager.Instance.Play("MenuClick");
         ChangeState(GAMESTATE.ArcadeMenu);
     }
 
     public void PracticeMenu()
     {
+        AudioManager.Instance.Play("MenuClick");
         MenuManager.Instance.ResetPractice();
         ChangeState(GAMESTATE.PracticeMenu);
     }
 
     public void OnQuit()
     {
+        AudioManager.Instance.Play("MenuClick");
         Debug.Log("Quit");
         Application.Quit();
     }
