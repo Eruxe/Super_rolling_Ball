@@ -98,6 +98,18 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: LittleClick
+    Clip: {fileID: 8300000, guid: d1b4369289bd74348b25de4156f6ff70, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: LifeUp
+    Clip: {fileID: 8300000, guid: 2108cdc5dd1781c4996577a59eb0a072, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}

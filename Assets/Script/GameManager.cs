@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
         collectible += amount;
         if (collectible >= 100)
         {
+            AudioManager.Instance.Play("LifeUp");
             lives++;
             MenuManager.Instance.UpdateLives();
             collectible -= 100;
