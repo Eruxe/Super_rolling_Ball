@@ -63,9 +63,9 @@ public class Ball : MonoBehaviour
         SoundTimer +=0.06f;
         if (Physics.SphereCast(transform.position, 0.65f, transform.up,out this.ray,1)) {
             
-            if (rb.velocity.magnitude > 0.2 && SoundTimer > 15 / rb.velocity.magnitude)
+            if (rb.velocity.magnitude > 0.001 && SoundTimer > 10 / rb.velocity.magnitude)
             {
-                AudioManager.Instance.PlayOneShot("Rolling",0.8f + rb.velocity.magnitude/150);
+                AudioManager.Instance.PlayOneShot("Rolling",0.7f + rb.velocity.magnitude/125);
                 SoundTimer = 0;
             }
         }

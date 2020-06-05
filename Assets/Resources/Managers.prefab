@@ -2242,7 +2242,7 @@ MonoBehaviour:
     Source: {fileID: 0}
   - name: Rolling
     Clip: {fileID: 8300000, guid: b2c7a70a75d264e4594d79609331b660, type: 3}
-    Volume: 0.5
+    Volume: 0.3
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
