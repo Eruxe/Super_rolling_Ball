@@ -50,7 +50,7 @@ public class AudioManager : MonoBehaviour
        s.Source.Play();
     }
 
-    public void PlayOneShot(string name)
+    public void PlayOneShot(string name,float pitch)
     {
         Sound s = Array.Find(Sounds, sound => sound.name == name);
         if (s == null)
@@ -58,7 +58,14 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("SOUND " + name  + " DOES NOT EXIST");
             return;
         }
+        s.Source.pitch = pitch;
         s.Source.PlayOneShot(s.Clip);
+    }
+
+    public bool isPlaying(String name)
+    {
+        Sound s = Array.Find(Sounds, sound => sound.name == name);
+        return s.Source.isPlaying;
     }
 
 

@@ -21,6 +21,10 @@ public class Ball : MonoBehaviour
     //EVENT
     public static event Action OnFalling;
 
+    //SOUND
+    float SoundTimer;
+    RaycastHit ray;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +33,8 @@ public class Ball : MonoBehaviour
 
         GameManager.Pausing += OnPause;
         GameManager.Resuming += OnResume;
+
+        SoundTimer = 0;
 
         this.littlePushForward();
     }
@@ -39,25 +45,30 @@ public class Ball : MonoBehaviour
         GameManager.Resuming -= OnResume;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //ne pas utiliser pour la physique de la balle
-    }
-
     void FixedUpdate()
     {
-            float moveHorizontal = Input.GetAxis("Horizontal");
-            float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
 
-            Vector3 verticalGravity = Vector3.Scale(cam.transform.forward, new Vector3(moveVertical, 0, moveVertical)) * speed;
-            Vector3 horizontalGravity = Vector3.Scale(cam.transform.right, new Vector3(moveHorizontal, 0, moveHorizontal)) * speed;
-            Physics.gravity = Vector3.ClampMagnitude(new Vector3(0, -9.81f, 0) + verticalGravity + horizontalGravity, 9.81f) * gravity;
+        Vector3 verticalGravity = Vector3.Scale(cam.transform.forward, new Vector3(moveVertical, 0, moveVertical)) * speed;
+        Vector3 horizontalGravity = Vector3.Scale(cam.transform.right, new Vector3(moveHorizontal, 0, moveHorizontal)) * speed;
+        Physics.gravity = Vector3.ClampMagnitude(new Vector3(0, -9.81f, 0) + verticalGravity + horizontalGravity, 9.81f) * gravity;
 
-            if (transform.position.y < -10 && GameManager.GetState == GAMESTATE.Play)
+        if (transform.position.y < -10 && GameManager.GetState == GAMESTATE.Play)
+        {
+            GameManager.Instance.Falling();
+        }
+
+        //Moving Sound
+        SoundTimer +=0.06f;
+        if (Physics.SphereCast(transform.position, 0.65f, transform.up,out this.ray,1)) {
+            
+            if (rb.velocity.magnitude > 0.001 && SoundTimer > 10 / rb.velocity.magnitude)
             {
-                GameManager.Instance.Falling();
+                AudioManager.Instance.PlayOneShot("Rolling",0.7f + rb.velocity.magnitude/125);
+                SoundTimer = 0;
             }
+        }
     }
 
     public void SetCamera(CameraScript cam)
@@ -83,4 +94,12 @@ public class Ball : MonoBehaviour
         rb.AddForce(SavedVelocity, ForceMode.VelocityChange);
         rb.AddTorque(SavedAngular, ForceMode.VelocityChange);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //CollisionSound
+        if (collision.impulse.magnitude > 2.8) { AudioManager.Instance.Play("CollisionHard"); }
+        else if (collision.impulse.magnitude > 1.2) { AudioManager.Instance.Play("CollisionSoft"); }
+    }
+
 }
