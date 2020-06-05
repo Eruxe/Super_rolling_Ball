@@ -49,6 +49,7 @@ public class LevelManager : MonoBehaviour
         CurrentList = list;
         CurrentLevel = level;
         SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
+        AudioManager.Instance.PlayMusicFromDifficulty(CurrentList);
     }
 
     public void BeginArcade(int list)
@@ -59,6 +60,7 @@ public class LevelManager : MonoBehaviour
         CurrentList = list;
         CurrentLevel = -1;
         this.PlayNext();
+        AudioManager.Instance.PlayMusicFromDifficulty(CurrentList);
     }
 
     public void PlayNext()

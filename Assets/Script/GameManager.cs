@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 
     public void Menu()
     {
+        AudioManager.Instance.StopMusic();
         SceneManager.LoadScene(0);
         ChangeState(GAMESTATE.Menu);
     }

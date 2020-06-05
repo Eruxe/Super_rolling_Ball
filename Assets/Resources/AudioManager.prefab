@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &378177534187168487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5266957318802059605}
+  - component: {fileID: 8282238385415692354}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5266957318802059605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378177534187168487}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 612.6206, y: 879.9985, z: -29.3802}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8282238385415692354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378177534187168487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d133ea91cc8cbb3418ef9082a53eb06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - name: Pepper
+    Clip: {fileID: 8300000, guid: d16721b8a9547f74fafbe8b82fb786de, type: 3}
+    Volume: 0.5
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: Rolling
+    Clip: {fileID: 8300000, guid: b2c7a70a75d264e4594d79609331b660, type: 3}
+    Volume: 0.3
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: CollisionSoft
+    Clip: {fileID: 8300000, guid: edeb2e67381fc3242b3823c743e445bb, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: CollisionHard
+    Clip: {fileID: 8300000, guid: 2ef746325d458a44c861a0ce10faebd6, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: MusicBeginner
+    Clip: {fileID: 8300000, guid: 66fd090895be9234097f33e2acc7cd78, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
+  - name: MusicAdvanced
+    Clip: {fileID: 8300000, guid: a087450a1befdd04d97c88550a69a0fc, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
+  - name: MusicExpert
+    Clip: {fileID: 8300000, guid: e87282d61948cd74f8c4d58fb27ef790, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
+  CurrentMusic:
+    name: 
+    Clip: {fileID: 0}
+    Volume: 0
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}

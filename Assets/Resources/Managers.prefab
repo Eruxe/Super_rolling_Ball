@@ -1670,7 +1670,7 @@ RectTransform:
   - {fileID: 65253688383694218}
   - {fileID: 8608514651253077853}
   m_Father: {fileID: 5743106058687868932}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2190,74 +2190,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &4458894227098196276
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8199189174498036358}
-  - component: {fileID: 5345431034952850321}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8199189174498036358
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4458894227098196276}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 612.6206, y: 879.9985, z: -29.3802}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5743106058687868932}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5345431034952850321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4458894227098196276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d133ea91cc8cbb3418ef9082a53eb06e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sounds:
-  - name: Pepper
-    Clip: {fileID: 8300000, guid: d16721b8a9547f74fafbe8b82fb786de, type: 3}
-    Volume: 0.5
-    Pitch: 1
-    Loop: 0
-    Source: {fileID: 0}
-  - name: Rolling
-    Clip: {fileID: 8300000, guid: b2c7a70a75d264e4594d79609331b660, type: 3}
-    Volume: 0.3
-    Pitch: 1
-    Loop: 0
-    Source: {fileID: 0}
-  - name: CollisionSoft
-    Clip: {fileID: 8300000, guid: edeb2e67381fc3242b3823c743e445bb, type: 3}
-    Volume: 0.7
-    Pitch: 1
-    Loop: 0
-    Source: {fileID: 0}
-  - name: CollisionHard
-    Clip: {fileID: 8300000, guid: 2ef746325d458a44c861a0ce10faebd6, type: 3}
-    Volume: 0.8
-    Pitch: 1
-    Loop: 0
-    Source: {fileID: 0}
 --- !u!1 &4630836374080523420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3297,7 +3229,6 @@ Transform:
   - {fileID: 5743106058024868466}
   - {fileID: 5743106059888026177}
   - {fileID: 5440627354830621817}
-  - {fileID: 8199189174498036358}
   - {fileID: 1081369808543538778}
   m_Father: {fileID: 0}
   m_RootOrder: 0
