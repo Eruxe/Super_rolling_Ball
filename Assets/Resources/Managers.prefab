@@ -2240,6 +2240,24 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: Rolling
+    Clip: {fileID: 8300000, guid: b2c7a70a75d264e4594d79609331b660, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: CollisionSoft
+    Clip: {fileID: 8300000, guid: edeb2e67381fc3242b3823c743e445bb, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: CollisionHard
+    Clip: {fileID: 8300000, guid: 2ef746325d458a44c861a0ce10faebd6, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
 --- !u!1 &4630836374080523420
 GameObject:
   m_ObjectHideFlags: 0

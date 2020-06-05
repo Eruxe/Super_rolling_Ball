@@ -39,12 +39,6 @@ public class Ball : MonoBehaviour
         GameManager.Resuming -= OnResume;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //ne pas utiliser pour la physique de la balle
-    }
-
     void FixedUpdate()
     {
             float moveHorizontal = Input.GetAxis("Horizontal");
@@ -82,5 +76,11 @@ public class Ball : MonoBehaviour
         rb.isKinematic = false;
         rb.AddForce(SavedVelocity, ForceMode.VelocityChange);
         rb.AddTorque(SavedAngular, ForceMode.VelocityChange);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.impulse.magnitude > 2.8){ AudioManager.Instance.Play("CollisionHard"); }
+        else if (collision.impulse.magnitude > 1.2){ AudioManager.Instance.Play("CollisionSoft"); }
     }
 }
