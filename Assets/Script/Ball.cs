@@ -61,7 +61,7 @@ public class Ball : MonoBehaviour
 
         //Moving Sound
         SoundTimer +=0.06f;
-        if (Physics.SphereCast(transform.position, 0.65f, transform.up,out this.ray,1)) {
+        if (Physics.SphereCast(transform.position, 0.65f, transform.up,out this.ray,0.60f)) {
             
             if (rb.velocity.magnitude > 0.001 && SoundTimer > 10 / rb.velocity.magnitude)
             {
