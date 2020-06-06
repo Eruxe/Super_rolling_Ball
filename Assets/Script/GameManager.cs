@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         }
         if (lives < 0)
         {
-            SceneManager.LoadScene(0);
+            Menu();
         }
         else
         {
