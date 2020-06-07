@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86c8c701d59b2343a6f577f3263c93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam_reactivity: 10
+  cam_reactivity: 15
   recenter_speed: 1
   vertical_power: 15
   horizontal_power: 15

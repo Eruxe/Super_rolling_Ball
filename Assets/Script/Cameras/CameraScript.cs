@@ -32,25 +32,34 @@ public class CameraScript : MonoBehaviour
             float moveVertical = Input.GetAxisRaw("Vertical");
 
             //The camera lean with player input to give the illusion that the player move the stage and not the ball
-            float xEuleur = initial_rotation.eulerAngles[0] + moveVertical * vertical_power * -1;
-            float zEuleur = initial_rotation.eulerAngles[2] + moveHorizontal * horizontal_power;
+            float xTiltEuleur = initial_rotation.eulerAngles[0] + moveVertical * vertical_power * -1;
+            float zTiltEuleur = initial_rotation.eulerAngles[2] + moveHorizontal * horizontal_power;
 
+            float xEuler = transform.rotation.eulerAngles[0];
             float yEuleur = transform.rotation.eulerAngles[1];
             if (prb.velocity.magnitude > 0.1)
             {
+                if(Mathf.Abs(prb.velocity.y)>1) xEuler = Mathf.Clamp(-prb.velocity.y*1.5f,-35,35);
+                Debug.Log(-prb.velocity.y);
                 yEuleur = Vector3.SignedAngle(Vector3.forward, Vector3.Scale(prb.velocity, new Vector3(1, 0, 1)), Vector3.up);
             }
 
-            Quaternion target_rotationXYZ = Quaternion.Slerp(Quaternion.Euler(0, transform.rotation.eulerAngles[1], 0), Quaternion.Euler(0, yEuleur, 0), recenter_speed * Time.deltaTime * (prb.velocity.magnitude));
-
-
-            transform.rotation = target_rotationXYZ;//* target_rotationXZ;
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation, 
+                Quaternion.Euler(xEuler, yEuleur, 0), 
+                recenter_speed * (prb.velocity.magnitude) * Time.deltaTime
+                );
 
             //The camera follow the player
             transform.position = player.transform.position;
 
-            Quaternion target_rotationXZ = Quaternion.Slerp(Quaternion.Euler(PlayerCenter.transform.rotation.eulerAngles[0], 0, PlayerCenter.transform.rotation.eulerAngles[2]), Quaternion.Euler(xEuleur, 0, zEuleur), cam_reactivity * Time.deltaTime);
-            PlayerCenter.transform.rotation = target_rotationXYZ * target_rotationXZ;
+            //Tilting
+            PlayerCenter.transform.rotation = Quaternion.Slerp(PlayerCenter.transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles[0]+ xTiltEuleur, transform.rotation.eulerAngles[1], transform.rotation.eulerAngles[2]+zTiltEuleur) , cam_reactivity * Time.deltaTime);
+
+            //OLD TILT METHOD
+            //OLD TILTING .SLERP 10*time
+            //Quaternion target_rotationXZ = Quaternion.RotateTowards(Quaternion.Euler(PlayerCenter.transform.rotation.eulerAngles[0], 0, PlayerCenter.transform.rotation.eulerAngles[2]), Quaternion.Euler(xEuleur, 0, zEuleur), cam_reactivity * Time.deltaTime);
+            //PlayerCenter.transform.rotation = target_rotationXYZ * target_rotationXZ;
         }
     }
 

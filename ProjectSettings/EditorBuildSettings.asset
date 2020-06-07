@@ -45,8 +45,14 @@ EditorBuildSettings:
     path: Assets/Scenes/02 Advanced/Modif/Shurikens.unity
     guid: 04ba4d3a1ed2b6f49b0c66eaac89592d
   - enabled: 1
+    path: Assets/Scenes/03 Expert/Modif/Looping.unity
+    guid: 00a097a0b51ed794a922aef591a8ec39
+  - enabled: 1
     path: Assets/Scenes/03 Expert/Modif/Descentes.unity
     guid: e92ea0ea63ca05c4fa75e9bea135809b
+  - enabled: 1
+    path: Assets/Scenes/03 Expert/Modif/SpaceStation.unity
+    guid: 4c5bf6dccd9ecc2498ab91b7c1162a38
   - enabled: 1
     path: Assets/Scenes/03 Expert/Modif/Highway.unity
     guid: 9832d24b04d3ecd4c8db730fa243f8c7
