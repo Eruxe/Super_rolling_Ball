@@ -110,7 +110,32 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: Winning
+    Clip: {fileID: 8300000, guid: 277826822b861c743acbecfd362e7a39, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: Falling
+    Clip: {fileID: 8300000, guid: e25cd6591569d984b958cb18fa6ac0d5, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: Timeout
+    Clip: {fileID: 8300000, guid: 822963d8a8959d441b66c639b748ba3d, type: 3}
+    Volume: 0.8
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
   CurrentMusic:
+    name: 
+    Clip: {fileID: 0}
+    Volume: 0
+    Pitch: 0
+    Loop: 0
+    Source: {fileID: 0}
+  NextMusic:
     name: 
     Clip: {fileID: 0}
     Volume: 0

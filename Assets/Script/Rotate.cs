@@ -16,6 +16,9 @@ public class Rotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.transform.Rotate(xSpeed*Time.deltaTime, ySpeed * Time.deltaTime, zSpeed * Time.deltaTime);
+        if (GameManager.GetState == GAMESTATE.Play || GameManager.GetState == GAMESTATE.Menu || GameManager.GetState == GAMESTATE.ArcadeMenu || GameManager.GetState == GAMESTATE.PracticeMenu)
+        {
+            this.gameObject.transform.Rotate(xSpeed * Time.deltaTime, ySpeed * Time.deltaTime, zSpeed * Time.deltaTime);
+        }
     }
 }
