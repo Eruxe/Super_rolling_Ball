@@ -21,6 +21,10 @@ public class LevelManager : MonoBehaviour
     static List<List<int>> loadingList;
     static int CurrentList;
     public static bool isPractising = true;
+    public int levelToLoad;
+
+    //Fading
+    public Animator fadeAnim;
 
     // Start is called before the first frame update
     private void Awake()
@@ -49,8 +53,8 @@ public class LevelManager : MonoBehaviour
         GameManager.collectible = 0;
         CurrentList = list;
         CurrentLevel = level;
-        SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
-        AudioManager.Instance.PlayMusicFromDifficulty(CurrentList);
+        this.PlayNext();
+        AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
     }
 
     public void BeginArcade(int list)
@@ -62,7 +66,13 @@ public class LevelManager : MonoBehaviour
         CurrentList = list;
         CurrentLevel = -1;
         this.PlayNext();
-        AudioManager.Instance.PlayMusicFromDifficulty(CurrentList);
+        AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
+    }
+
+    public void Restart()
+    {
+        levelToLoad = loadingList[CurrentList][CurrentLevel];
+        fadeAnim.SetTrigger("FadeOut");
     }
 
     public void PlayNext()
@@ -70,14 +80,16 @@ public class LevelManager : MonoBehaviour
         if (isPractising)
         {
             GameManager.collectible = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            levelToLoad = loadingList[CurrentList][CurrentLevel];
+            fadeAnim.SetTrigger("FadeOut");
         }
         else
         {
             CurrentLevel++;
             if (CurrentLevel < loadingList[CurrentList].Count && (CurrentList == 0 || CurrentList == 1 || CurrentList == 2))
             {
-                SceneManager.LoadScene(loadingList[CurrentList][CurrentLevel]);
+                levelToLoad = loadingList[CurrentList][CurrentLevel];
+                fadeAnim.SetTrigger("FadeOut");
             }
             else
             {
@@ -89,6 +101,20 @@ public class LevelManager : MonoBehaviour
     public bool IsLastInList(int list, int level)
     {
         return level >= loadingList[list].Count-1;
+    }
+
+    public void LaunchScene()
+    {
+        SceneManager.LoadScene(levelToLoad);
+        if (levelToLoad == 0) GameManager.Instance.ShowMenu();
+        AudioManager.Instance.PlayNextMusic();
+    }
+
+    public void Menu()
+    {
+        AudioManager.Instance.SetNextMusic("Menu");
+        levelToLoad = 0;
+        fadeAnim.SetTrigger("FadeOut");
     }
 
 }

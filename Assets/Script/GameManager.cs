@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            LevelManager.Instance.Restart();
         }
     }
 
@@ -124,11 +124,14 @@ public class GameManager : MonoBehaviour
         LevelManager.Instance.PlayNext();
     }
 
+    public void ShowMenu()
+    {
+        ChangeState(GAMESTATE.Menu);
+    }
+
     public void Menu()
     {
-        AudioManager.Instance.PlayMusic("Menu");
-        SceneManager.LoadScene(0);
-        ChangeState(GAMESTATE.Menu);
+        LevelManager.Instance.Menu();
     }
 
     public void MainMenu()

@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] Sounds;
 
     public Sound CurrentMusic;
+    public Sound NextMusic;
 
 
     // Start is called before the first frame update
@@ -60,6 +61,27 @@ public class AudioManager : MonoBehaviour
         PlayMusic("Menu");
     }
 
+    public void SetNextMusic(String name)
+    {
+        Sound s = Array.Find(Sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("MUSIC " + name + " DOES NOT EXIST");
+            return;
+        }
+        NextMusic = s;
+    }
+
+    public void PlayNextMusic()
+    {
+        if (!CurrentMusic.Equals(NextMusic))
+        {
+            StopMusic();
+            CurrentMusic = NextMusic;
+            CurrentMusic.Source.Play();
+        }
+    }
+
     public void Play(string name)
     {
        Sound s = Array.Find(Sounds, sound => sound.name == name);
@@ -84,18 +106,18 @@ public class AudioManager : MonoBehaviour
         CurrentMusic.Source.Play();
     }
 
-    public void PlayMusicFromDifficulty(int list)
+    public void SetMusicFromDifficulty(int list)
     {
         switch (list)
         {
             case 0:
-                PlayMusic("MusicBeginner");
+                SetNextMusic("MusicBeginner");
                 break;
             case 1:
-                PlayMusic("MusicAdvanced");
+                SetNextMusic("MusicAdvanced");
                 break;
             case 2:
-                PlayMusic("MusicExpert");
+                SetNextMusic("MusicExpert");
                 break;
             default:
                 Debug.Log("no music associated with list: " + list);
