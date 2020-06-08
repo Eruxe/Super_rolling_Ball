@@ -99,7 +99,7 @@ public class Ball : MonoBehaviour
     {
         //CollisionSound
         if (collision.impulse.magnitude > 2.8) { AudioManager.Instance.Play("CollisionHard"); }
-        else if (collision.impulse.magnitude > 1.2) { AudioManager.Instance.Play("CollisionSoft"); }
+        else if (collision.impulse.magnitude > 1) { AudioManager.Instance.Play("CollisionSoft"); }
     }
 
 }

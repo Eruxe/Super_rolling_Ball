@@ -40,7 +40,6 @@ public class CameraScript : MonoBehaviour
             if (prb.velocity.magnitude > 0.1)
             {
                 if(Mathf.Abs(prb.velocity.y)>1) xEuler = Mathf.Clamp(-prb.velocity.y*1.5f,-35,35);
-                Debug.Log(-prb.velocity.y);
                 yEuleur = Vector3.SignedAngle(Vector3.forward, Vector3.Scale(prb.velocity, new Vector3(1, 0, 1)), Vector3.up);
             }
 
