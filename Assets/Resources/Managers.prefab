@@ -3595,7 +3595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4939276368220204453
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4976,6 +4976,7 @@ MonoBehaviour:
   BeginnerList: 010000000200000003000000040000000500000006000000
   AdvancedList: 0700000008000000090000000a0000000b0000000c000000
   ExpertList: 0d0000000e0000000f00000010000000
+  levelToLoad: 0
   fadeAnim: {fileID: 1774936452885942302}
 --- !u!1 &8182022347176920583
 GameObject:
