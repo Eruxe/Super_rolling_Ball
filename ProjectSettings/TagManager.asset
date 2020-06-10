@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SecondCamera
   - SecondCameraCenter
+  - FinishCollider
   layers:
   - Default
   - TransparentFX

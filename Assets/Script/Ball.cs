@@ -52,7 +52,16 @@ public class Ball : MonoBehaviour
 
         Vector3 verticalGravity = Vector3.Scale(cam.transform.forward, new Vector3(moveVertical, 0, moveVertical)) * speed;
         Vector3 horizontalGravity = Vector3.Scale(cam.transform.right, new Vector3(moveHorizontal, 0, moveHorizontal)) * speed;
-        Physics.gravity = Vector3.ClampMagnitude(new Vector3(0, -9.81f, 0) + verticalGravity + horizontalGravity, 9.81f) * gravity;
+        if (GameManager.GetState != GAMESTATE.Victory)
+        {
+            Physics.gravity = Vector3.ClampMagnitude(new Vector3(0, -9.81f, 0) + verticalGravity + horizontalGravity, 9.81f) * gravity;
+        }
+        else
+        {
+            Physics.gravity = Vector3.zero;
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, 5 * Time.deltaTime);
+            rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, 5 * Time.deltaTime);
+        }
 
         if (transform.position.y < -10 && GameManager.GetState == GAMESTATE.Play)
         {
