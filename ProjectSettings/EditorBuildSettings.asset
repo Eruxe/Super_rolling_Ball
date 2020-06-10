@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/02 Advanced/Modif/Shurikens.unity
     guid: 04ba4d3a1ed2b6f49b0c66eaac89592d
   - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/Spin.unity
+    guid: 51115c601245d7e48a6a8b2d18b64950
+  - enabled: 1
     path: Assets/Scenes/03 Expert/Modif/Looping.unity
     guid: 00a097a0b51ed794a922aef591a8ec39
   - enabled: 1
