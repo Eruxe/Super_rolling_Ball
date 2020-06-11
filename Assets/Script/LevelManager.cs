@@ -17,11 +17,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public List<int> ExpertList;
 
 
-    static int CurrentLevel;
+    public static int CurrentLevel;
     public static List<List<int>> loadingList;
-    static int CurrentList;
+    public static int CurrentList;
     public static bool isPractising = true;
     public int levelToLoad;
+
+
 
     //Fading
     public Animator fadeAnim;
@@ -117,4 +119,12 @@ public class LevelManager : MonoBehaviour
         fadeAnim.SetTrigger("FadeOut");
     }
 
+    public string GetLevelName(int list, int level)
+    {
+        string path = SceneUtility.GetScenePathByBuildIndex(LevelManager.loadingList[list][level]);
+        int slash = path.LastIndexOf('/');
+        string name = path.Substring(slash + 1);
+        int dot = name.LastIndexOf('.');
+        return name.Substring(0, dot);
+    }
 }

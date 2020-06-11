@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject LivesText;
     [SerializeField] GameObject TimeText;
     [SerializeField] GameObject CollectiblesText;
+    [SerializeField] GameObject LevelText;
 
     //Practice Variables
     static int SelectedList = 0;
@@ -152,11 +153,7 @@ public class MenuManager : MonoBehaviour
                 SelectedListText.GetComponent<TextMeshProUGUI>().text = "Expert";
                 break;
         }
-        string path = SceneUtility.GetScenePathByBuildIndex(LevelManager.loadingList[SelectedList][SelectedLevel]);
-        int slash = path.LastIndexOf('/');
-        string name = path.Substring(slash + 1);
-        int dot = name.LastIndexOf('.');
-        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = (SelectedLevel+1).ToString() +" : "+ name.Substring(0, dot);
+        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = (SelectedLevel+1).ToString() +" : "+ LevelManager.Instance.GetLevelName(SelectedList, SelectedLevel);
     }
 
     public void ResetPractice()
@@ -177,6 +174,7 @@ public class MenuManager : MonoBehaviour
         UpdateLives();
         UpdateCollectibles();
         UpdateTimes();
+        UpdateCurrentLevel();
     }
     public void UpdateLives()
     {
@@ -191,6 +189,11 @@ public class MenuManager : MonoBehaviour
     public void UpdateTimes()
     {
         TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: "+GameManager.time.ToString("f1");
+    }
+
+    public void UpdateCurrentLevel()
+    {
+        LevelText.GetComponent<TextMeshProUGUI>().text = (LevelManager.CurrentLevel+1) + "/" + LevelManager.loadingList[LevelManager.CurrentList].Count + " : " + LevelManager.Instance.GetLevelName(LevelManager.CurrentList,LevelManager.CurrentLevel);
     }
 
 }
