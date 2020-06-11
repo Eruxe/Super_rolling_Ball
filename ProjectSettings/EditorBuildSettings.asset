@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/02 Advanced/Modif/SmilingExam.unity
     guid: b73aa0bd4ff7d32429e8cabf9bc50b08
   - enabled: 1
+    path: Assets/Scenes/02 Advanced/Modif/JigSaw.unity
+    guid: 8b21d93be51dbd74ca17718efc3dc317
+  - enabled: 1
     path: Assets/Scenes/02 Advanced/Modif/Shurikens.unity
     guid: 04ba4d3a1ed2b6f49b0c66eaac89592d
   - enabled: 1

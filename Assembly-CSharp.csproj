@@ -74,6 +74,7 @@
     <Compile Include="Assets\Script\MenuManager.cs" />
     <Compile Include="Assets\Script\MyEnums.cs" />
     <Compile Include="Assets\Script\Rotate.cs" />
+    <Compile Include="Assets\Script\RotateReturn.cs" />
     <Compile Include="Assets\Script\Sound.cs" />
     <Compile Include="Assets\Script\Spawn.cs" />
     <Compile Include="Assets\Script\TranslatePlatform.cs" />
