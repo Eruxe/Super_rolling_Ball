@@ -18,7 +18,7 @@ public class LevelManager : MonoBehaviour
 
 
     static int CurrentLevel;
-    static List<List<int>> loadingList;
+    public static List<List<int>> loadingList;
     static int CurrentList;
     public static bool isPractising = true;
     public int levelToLoad;

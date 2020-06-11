@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -151,7 +152,11 @@ public class MenuManager : MonoBehaviour
                 SelectedListText.GetComponent<TextMeshProUGUI>().text = "Expert";
                 break;
         }
-        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = SelectedLevel.ToString();
+        string path = SceneUtility.GetScenePathByBuildIndex(LevelManager.loadingList[SelectedList][SelectedLevel]);
+        int slash = path.LastIndexOf('/');
+        string name = path.Substring(slash + 1);
+        int dot = name.LastIndexOf('.');
+        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = (SelectedLevel+1).ToString() +" : "+ name.Substring(0, dot);
     }
 
     public void ResetPractice()
