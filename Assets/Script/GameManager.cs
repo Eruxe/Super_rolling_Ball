@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.Play("Falling");
         ChangeState(GAMESTATE.Falling);
+        AudioManager.Instance.Play("FallingVoice");
         //Restart();
     }
 
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.Play("Timeout");
         ChangeState(GAMESTATE.Timeout);
+        AudioManager.Instance.Play("TimeOutVoice");
         //Restart();
     }
 
@@ -125,6 +127,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.Play("Winning");
         ChangeState(GAMESTATE.Victory);
+        AudioManager.Instance.Play("GoalVoice");
         //LevelManager.Instance.PlayNext();
     }
 
