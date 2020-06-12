@@ -76,14 +76,14 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.Play("Falling");
         ChangeState(GAMESTATE.Falling);
-        Restart();
+        //Restart();
     }
 
     public void Timout()
     {
         AudioManager.Instance.Play("Timeout");
         ChangeState(GAMESTATE.Timeout);
-        Restart();
+        //Restart();
     }
 
     public void Restart()
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.Play("Winning");
         ChangeState(GAMESTATE.Victory);
-        LevelManager.Instance.PlayNext();
+        //LevelManager.Instance.PlayNext();
     }
 
     public void Welcome()

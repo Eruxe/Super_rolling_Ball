@@ -10,4 +10,14 @@ public class Fading : MonoBehaviour
         LevelManager.Instance.LaunchScene();
     }
 
+    public void OnGoalCompleted()
+    {
+        LevelManager.Instance.PlayNext();
+    }
+
+    public void OnFallingOrTimoutCompleted()
+    {
+        GameManager.Instance.Restart();
+    }
+
 }
