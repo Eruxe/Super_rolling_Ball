@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
     //FONDAMENTAUX
     private static GameManager m_Instance;
     public static GameManager Instance { get { return m_Instance; } }
-    [SerializeField] GAMESTATE initial_state = GAMESTATE.Menu;
-    GAMESTATE m_state;
-    public static GAMESTATE GetState { get { return m_Instance.m_state; } }
+    [SerializeField] GAMESTATE initial_state;
+    static GAMESTATE m_state;
+    public static GAMESTATE GetState { get { return m_state; } }
 
     //EVENT
     public static event Action<GAMESTATE> OnGameStateChanged;
@@ -99,7 +99,8 @@ public class GameManager : MonoBehaviour
         }
         if (lives < 0)
         {
-            Menu();
+            LevelManager.Instance.toShowOnPreMenu = GAMESTATE.GameOver;
+            PreMenu();
         }
         else
         {
@@ -125,6 +126,26 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Winning");
         ChangeState(GAMESTATE.Victory);
         LevelManager.Instance.PlayNext();
+    }
+
+    public void Welcome()
+    {
+        ChangeState(GAMESTATE.Welcome);
+    }
+
+    public void GameOver()
+    {
+        ChangeState(GAMESTATE.GameOver);
+    }
+
+    public void Congratulation()
+    {
+        ChangeState(GAMESTATE.Congratulation);
+    }
+
+    public void PreMenu()
+    {
+        LevelManager.Instance.PreMenu();
     }
 
     public void ShowMenu()

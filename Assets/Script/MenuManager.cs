@@ -26,6 +26,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject m_Winning;
     [SerializeField] GameObject m_Falling;
     [SerializeField] GameObject m_Timeout;
+    [SerializeField] GameObject m_Welcome;
+    [SerializeField] GameObject m_Gameover;
+    [SerializeField] GameObject m_Congratulation;
 
     //Practice menu
     [SerializeField] GameObject SelectedLevelText;
@@ -61,6 +64,9 @@ public class MenuManager : MonoBehaviour
         m_Panels.Add(m_Winning);
         m_Panels.Add(m_Falling);
         m_Panels.Add(m_Timeout);
+        m_Panels.Add(m_Welcome);
+        m_Panels.Add(m_Gameover);
+        m_Panels.Add(m_Congratulation);
     }
 
     // Start is called before the first frame update
@@ -104,7 +110,13 @@ public class MenuManager : MonoBehaviour
                 OpenPanel(m_PausePanel, true);
                 break;
             case GAMESTATE.GameOver:
-                OpenPanel(null, false);
+                OpenPanel(m_Gameover, false);
+                break;
+            case GAMESTATE.Congratulation:
+                OpenPanel(m_Congratulation, false);
+                break;
+            case GAMESTATE.Welcome:
+                OpenPanel(m_Welcome, false);
                 break;
         }
     }
