@@ -129,7 +129,7 @@ public class LevelManager : MonoBehaviour
 
     public void PreMenu()
     {
-        AudioManager.Instance.SetNextMusic("Menu");
+        AudioManager.Instance.SetNextMusic("null");
         levelToLoad = 0;
         fadeAnim.SetTrigger("FadeOut");
     }

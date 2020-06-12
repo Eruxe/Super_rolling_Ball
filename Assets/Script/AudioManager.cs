@@ -58,7 +58,6 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         m_IsReady = true;
-        PlayMusic("Menu");
     }
 
     public void SetNextMusic(String name)
@@ -67,6 +66,7 @@ public class AudioManager : MonoBehaviour
         if (s == null)
         {
             Debug.LogWarning("MUSIC " + name + " DOES NOT EXIST");
+            NextMusic = null;
             return;
         }
         NextMusic = s;
@@ -74,11 +74,15 @@ public class AudioManager : MonoBehaviour
 
     public void PlayNextMusic()
     {
-        if (!CurrentMusic.Equals(NextMusic))
+        if (!CurrentMusic.Equals(NextMusic) && NextMusic!=null)
         {
             StopMusic();
             CurrentMusic = NextMusic;
             CurrentMusic.Source.Play();
+        }
+        else if(NextMusic == null)
+        {
+            AudioManager.Instance.StopMusic();
         }
     }
 
