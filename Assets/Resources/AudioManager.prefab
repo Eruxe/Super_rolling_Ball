@@ -164,6 +164,12 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: PreMenuMusic
+    Clip: {fileID: 8300000, guid: eee2d04792b6ea04fa186e29f57816cb, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}
