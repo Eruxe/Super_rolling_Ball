@@ -22,6 +22,7 @@ public class LevelManager : MonoBehaviour
     public static int CurrentList;
     public static bool isPractising = true;
     public int levelToLoad;
+    public GAMESTATE toShowOnPreMenu;
 
 
 
@@ -95,7 +96,8 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                GameManager.Instance.Menu();
+                toShowOnPreMenu = GAMESTATE.Congratulation;
+                GameManager.Instance.PreMenu();
             }
         }
     }
@@ -108,11 +110,24 @@ public class LevelManager : MonoBehaviour
     public void LaunchScene()
     {
         SceneManager.LoadScene(levelToLoad);
-        if (levelToLoad == 0) GameManager.Instance.ShowMenu();
+        if (levelToLoad == 1) GameManager.Instance.ShowMenu();
+        if (levelToLoad == 0)
+        {
+            if (toShowOnPreMenu == GAMESTATE.Congratulation) GameManager.Instance.Congratulation();
+            else if (toShowOnPreMenu == GAMESTATE.GameOver) GameManager.Instance.GameOver();
+            else GameManager.Instance.Welcome();
+        }
         AudioManager.Instance.PlayNextMusic();
     }
 
     public void Menu()
+    {
+        AudioManager.Instance.SetNextMusic("Menu");
+        levelToLoad = 1;
+        fadeAnim.SetTrigger("FadeOut");
+    }
+
+    public void PreMenu()
     {
         AudioManager.Instance.SetNextMusic("Menu");
         levelToLoad = 0;
