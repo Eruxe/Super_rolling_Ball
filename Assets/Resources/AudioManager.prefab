@@ -152,6 +152,18 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: GameOver
+    Clip: {fileID: 8300000, guid: 1a3e064cca5d88b40a7db9f5948664b5, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: Congratulation
+    Clip: {fileID: 8300000, guid: 3e60b029a1a24754dad9d67629940a15, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}
