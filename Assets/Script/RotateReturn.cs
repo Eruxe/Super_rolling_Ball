@@ -33,12 +33,12 @@ public class RotateReturn : MonoBehaviour
             if (state)
             {
                 this.gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, GoalRotation, Speed * Time.deltaTime);
-                if (Quaternion.Dot(transform.rotation,GoalRotation)>0.9999f) { state = false; }
+                if (Quaternion.Dot(transform.rotation,GoalRotation)>0.9999999f) { state = false; }
             }
             else
             {
                 this.gameObject.transform.rotation = Quaternion.RotateTowards(transform.rotation, initialRotation, Speed * Time.deltaTime);
-                if (Quaternion.Dot(transform.rotation, initialRotation) > 0.9999f) { state = true; }
+                if (Quaternion.Dot(transform.rotation, initialRotation) > 0.9999999f) { state = true; }
             }
         }
     }
