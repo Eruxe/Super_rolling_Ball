@@ -46,7 +46,7 @@ MonoBehaviour:
   Sounds:
   - name: Pepper
     Clip: {fileID: 8300000, guid: d16721b8a9547f74fafbe8b82fb786de, type: 3}
-    Volume: 0.5
+    Volume: 0.4
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
@@ -58,49 +58,49 @@ MonoBehaviour:
     Source: {fileID: 0}
   - name: CollisionSoft
     Clip: {fileID: 8300000, guid: edeb2e67381fc3242b3823c743e445bb, type: 3}
-    Volume: 0.7
+    Volume: 0.6
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: CollisionHard
     Clip: {fileID: 8300000, guid: 2ef746325d458a44c861a0ce10faebd6, type: 3}
-    Volume: 0.8
+    Volume: 0.7
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: MusicBeginner
     Clip: {fileID: 8300000, guid: 66fd090895be9234097f33e2acc7cd78, type: 3}
-    Volume: 1
+    Volume: 0.5
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
   - name: MusicAdvanced
     Clip: {fileID: 8300000, guid: a087450a1befdd04d97c88550a69a0fc, type: 3}
-    Volume: 1
+    Volume: 0.5
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
   - name: MusicExpert
     Clip: {fileID: 8300000, guid: e87282d61948cd74f8c4d58fb27ef790, type: 3}
-    Volume: 1
+    Volume: 0.5
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
   - name: Menu
     Clip: {fileID: 8300000, guid: 3337c5f1fc294544899f7f444d2b0eff, type: 3}
-    Volume: 1
+    Volume: 0.4
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
   - name: MenuClick
     Clip: {fileID: 8300000, guid: c208e428ae74f3649afad6267b2700b8, type: 3}
-    Volume: 0.8
+    Volume: 0.6
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: LittleClick
     Clip: {fileID: 8300000, guid: d1b4369289bd74348b25de4156f6ff70, type: 3}
-    Volume: 0.8
+    Volume: 0.7
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
     Source: {fileID: 0}
   - name: Winning
     Clip: {fileID: 8300000, guid: 277826822b861c743acbecfd362e7a39, type: 3}
-    Volume: 0.8
+    Volume: 0.7
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
@@ -154,19 +154,19 @@ MonoBehaviour:
     Source: {fileID: 0}
   - name: GameOver
     Clip: {fileID: 8300000, guid: 1a3e064cca5d88b40a7db9f5948664b5, type: 3}
-    Volume: 1
+    Volume: 0.8
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: Congratulation
     Clip: {fileID: 8300000, guid: 3e60b029a1a24754dad9d67629940a15, type: 3}
-    Volume: 1
+    Volume: 0.8
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: PreMenuMusic
     Clip: {fileID: 8300000, guid: eee2d04792b6ea04fa186e29f57816cb, type: 3}
-    Volume: 1
+    Volume: 0.3
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}

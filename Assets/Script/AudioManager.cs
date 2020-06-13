@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         m_IsReady = true;
-        PlayMusic("PreMenuMusic");
+        PlayMusic("Menu");
     }
 
     public void SetNextMusic(String name)
