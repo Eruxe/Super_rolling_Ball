@@ -113,8 +113,16 @@ public class LevelManager : MonoBehaviour
         if (levelToLoad == 1) GameManager.Instance.ShowMenu();
         if (levelToLoad == 0)
         {
-            if (toShowOnPreMenu == GAMESTATE.Congratulation) GameManager.Instance.Congratulation();
-            else if (toShowOnPreMenu == GAMESTATE.GameOver) GameManager.Instance.GameOver();
+            if (toShowOnPreMenu == GAMESTATE.Congratulation)
+            {
+                GameManager.Instance.Congratulation();
+                AudioManager.Instance.Play("Congratulation");
+            }
+            else if (toShowOnPreMenu == GAMESTATE.GameOver)
+            {
+                GameManager.Instance.GameOver();
+                AudioManager.Instance.Play("GameOver");
+            }
             else GameManager.Instance.Welcome();
         }
         AudioManager.Instance.PlayNextMusic();

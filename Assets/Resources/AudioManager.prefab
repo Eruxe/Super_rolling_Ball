@@ -128,6 +128,48 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: GoalVoice
+    Clip: {fileID: 8300000, guid: 3095d2257f019ad4a985db2d00637d6d, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: FallingVoice
+    Clip: {fileID: 8300000, guid: f49bb7b362be36749927c78cbc43a1ba, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: TimeOutVoice
+    Clip: {fileID: 8300000, guid: 8761ea7037c79c44f86c5952d1f6fccd, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: StartVoice
+    Clip: {fileID: 8300000, guid: 0921c6b87d2f4c7478fdfe25eb196e62, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: GameOver
+    Clip: {fileID: 8300000, guid: 1a3e064cca5d88b40a7db9f5948664b5, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: Congratulation
+    Clip: {fileID: 8300000, guid: 3e60b029a1a24754dad9d67629940a15, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: PreMenuMusic
+    Clip: {fileID: 8300000, guid: eee2d04792b6ea04fa186e29f57816cb, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}

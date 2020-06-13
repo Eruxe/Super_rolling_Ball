@@ -18,17 +18,17 @@ EditorBuildSettings:
     path: Assets/Scenes/01 Easy/Modif/Square.unity
     guid: 5510df4bafcf3414eb1af9533483dcf1
   - enabled: 1
-    path: Assets/Scenes/01 Easy/Modif/Spiral.unity
-    guid: a8ee5446ffdcca04dafb6218403ed0bc
-  - enabled: 1
     path: Assets/Scenes/01 Easy/Modif/Lovers.unity
     guid: d1dcc5f1b732ffa41ba714dfde8ce752
   - enabled: 1
-    path: Assets/Scenes/01 Easy/Modif/UpOrDown.unity
-    guid: f9de5cf6428babc45a6e5cdee3f0b5cf
+    path: Assets/Scenes/01 Easy/Modif/Spiral.unity
+    guid: a8ee5446ffdcca04dafb6218403ed0bc
   - enabled: 1
     path: Assets/Scenes/01 Easy/Modif/Barrel.unity
     guid: 80602a2c6245b0f499e3903ec57166a4
+  - enabled: 1
+    path: Assets/Scenes/01 Easy/Modif/UpOrDown.unity
+    guid: f9de5cf6428babc45a6e5cdee3f0b5cf
   - enabled: 1
     path: Assets/Scenes/01 Easy/Modif/ObstacleCourse.unity
     guid: fdd25c01506df1146b27be4cb9894da5
@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/01 Easy/Modif/CatchMe.unity
     guid: 5d8c7ab9672884e4ca9a19de9bf5e5c8
+  - enabled: 1
+    path: Assets/Scenes/01 Easy/Modif/ExamBeginner.unity
+    guid: 6bc0dab70aaff4644882b941415df401
   - enabled: 1
     path: Assets/Scenes/02 Advanced/Modif/ZigZag.unity
     guid: 65dc5bd59c49d484a83c937e7ffd1a11
