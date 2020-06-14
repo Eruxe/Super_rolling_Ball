@@ -129,19 +129,19 @@ MonoBehaviour:
     Loop: 0
     Source: {fileID: 0}
   - name: GoalVoice
-    Clip: {fileID: 8300000, guid: 3095d2257f019ad4a985db2d00637d6d, type: 3}
+    Clip: {fileID: 8300000, guid: 2478836176aca0e4c88de7f31f9c9c42, type: 3}
     Volume: 1
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: FallingVoice
-    Clip: {fileID: 8300000, guid: f49bb7b362be36749927c78cbc43a1ba, type: 3}
+    Clip: {fileID: 8300000, guid: 0cf52953bffecc14e9ca503e3c36ca80, type: 3}
     Volume: 1
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
   - name: TimeOutVoice
-    Clip: {fileID: 8300000, guid: 8761ea7037c79c44f86c5952d1f6fccd, type: 3}
+    Clip: {fileID: 8300000, guid: d5e05e80d7b555046ab69ffd7985828e, type: 3}
     Volume: 1
     Pitch: 1
     Loop: 0
