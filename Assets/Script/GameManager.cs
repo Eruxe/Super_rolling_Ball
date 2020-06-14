@@ -56,8 +56,8 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
-        ChangeState(GAMESTATE.Play);
-        SpawnBall(GameObject.Find("Spawn"));
+        AudioManager.Instance.Play("Ready");
+        ChangeState(GAMESTATE.Ready);
     }
 
     public void BackToPlay()
@@ -190,6 +190,10 @@ public class GameManager : MonoBehaviour
     //Function that spawn the ball where you want
     public void SpawnBall(GameObject spawn)
     {
+        Destroy(spawn.transform.GetChild(0).gameObject);
+        AudioManager.Instance.Play("Go");
+        ChangeState(GAMESTATE.Play);
+        MenuManager.Instance.Go();
         this.ball = Instantiate(this.ball,spawn.transform.position, spawn.transform.rotation);
         this.cam = Instantiate(this.cam,spawn.transform.position, spawn.transform.rotation);
         ball.SetCamera(cam);

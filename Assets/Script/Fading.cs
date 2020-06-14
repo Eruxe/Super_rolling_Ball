@@ -20,4 +20,9 @@ public class Fading : MonoBehaviour
         GameManager.Instance.Restart();
     }
 
+    public void OnReadyCompleted()
+    {
+        GameManager.Instance.SpawnBall(GameObject.Find("Spawn"));
+    }
+
 }

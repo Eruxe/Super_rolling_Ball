@@ -28,7 +28,7 @@ public class RotateReturn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GetState == GAMESTATE.Play)
+        if (GameManager.GetState == GAMESTATE.Play || GameManager.GetState == GAMESTATE.Ready)
         {
             if (state)
             {

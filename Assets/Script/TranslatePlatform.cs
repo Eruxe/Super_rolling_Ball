@@ -24,7 +24,7 @@ public class TranslatePlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GetState == GAMESTATE.Play)
+        if (GameManager.GetState == GAMESTATE.Play || GameManager.GetState == GAMESTATE.Ready)
         {
             nearestDistance = Mathf.Max(Vector3.Distance(transform.position, initial_pos), Vector3.Distance(transform.position, goal));
             slowForce = Mathf.Clamp((1 - ((nearestDistance * 100) / totalDistance / 100)) * 20, 0.01f, 1);

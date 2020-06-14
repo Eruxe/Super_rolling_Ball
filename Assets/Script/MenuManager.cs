@@ -29,6 +29,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject m_Welcome;
     [SerializeField] GameObject m_Gameover;
     [SerializeField] GameObject m_Congratulation;
+    [SerializeField] GameObject m_Ready;
 
     //Practice menu
     [SerializeField] GameObject SelectedLevelText;
@@ -67,6 +68,7 @@ public class MenuManager : MonoBehaviour
         m_Panels.Add(m_Welcome);
         m_Panels.Add(m_Gameover);
         m_Panels.Add(m_Congratulation);
+        m_Panels.Add(m_Ready);
     }
 
     // Start is called before the first frame update
@@ -86,7 +88,7 @@ public class MenuManager : MonoBehaviour
         switch (state)
         {
             case GAMESTATE.Menu:
-                OpenPanel(m_MenuPanel,true);
+                OpenPanel(m_MenuPanel, true);
                 break;
             case GAMESTATE.ArcadeMenu:
                 OpenPanel(m_MenuArcadePanel, true);
@@ -96,6 +98,7 @@ public class MenuManager : MonoBehaviour
                 break;
             case GAMESTATE.Play:
                 OpenPanel(m_PlayHUD, false);
+                m_PlayHUD.transform.Find("GO").gameObject.SetActive(false);
                 break;
             case GAMESTATE.Falling:
                 OpenPanel(m_Falling, false);
@@ -118,10 +121,13 @@ public class MenuManager : MonoBehaviour
             case GAMESTATE.Welcome:
                 OpenPanel(m_Welcome, false);
                 break;
+            case GAMESTATE.Ready:
+                OpenPanel(m_Ready, false);
+                break;
         }
     }
 
-    void OpenPanel(GameObject panel,bool background)
+    void OpenPanel(GameObject panel, bool background)
     {
         m_Panels.ForEach(item => item.SetActive(item == panel));
         Background.SetActive(background);
@@ -129,7 +135,7 @@ public class MenuManager : MonoBehaviour
 
     public void SelectList(int list)
     {
-        if(SelectedList!=list) AudioManager.Instance.Play("LittleClick");
+        if (SelectedList != list) AudioManager.Instance.Play("LittleClick");
         SelectedList = list;
         SelectedLevel = 0;
         ChangeLevelSelected();
@@ -152,7 +158,7 @@ public class MenuManager : MonoBehaviour
     public void ChangeLevelSelected()
     {
         PreviousButton.GetComponent<Button>().interactable = SelectedLevel > 0;
-        NextButton.GetComponent<Button>().interactable = !LevelManager.Instance.IsLastInList(SelectedList,SelectedLevel);
+        NextButton.GetComponent<Button>().interactable = !LevelManager.Instance.IsLastInList(SelectedList, SelectedLevel);
         switch (SelectedList)
         {
             case 0:
@@ -165,7 +171,7 @@ public class MenuManager : MonoBehaviour
                 SelectedListText.GetComponent<TextMeshProUGUI>().text = "Expert";
                 break;
         }
-        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = (SelectedLevel+1).ToString() +" : "+ LevelManager.Instance.GetLevelName(SelectedList, SelectedLevel);
+        SelectedLevelText.GetComponent<TextMeshProUGUI>().text = (SelectedLevel + 1).ToString() + " : " + LevelManager.Instance.GetLevelName(SelectedList, SelectedLevel);
     }
 
     public void ResetPractice()
@@ -190,22 +196,26 @@ public class MenuManager : MonoBehaviour
     }
     public void UpdateLives()
     {
-        LivesText.GetComponent<TextMeshProUGUI>().text = "LIVES: "+GameManager.lives;
+        LivesText.GetComponent<TextMeshProUGUI>().text = "LIVES: " + GameManager.lives;
     }
 
     public void UpdateCollectibles()
     {
-        CollectiblesText.GetComponent<TextMeshProUGUI>().text = "PEPPER: "+GameManager.collectible;
+        CollectiblesText.GetComponent<TextMeshProUGUI>().text = "PEPPER: " + GameManager.collectible;
     }
 
     public void UpdateTimes()
     {
-        TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: "+GameManager.time.ToString("f1");
+        TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: " + GameManager.time.ToString("f1");
     }
 
     public void UpdateCurrentLevel()
     {
-        LevelText.GetComponent<TextMeshProUGUI>().text = (LevelManager.CurrentLevel+1) + "/" + LevelManager.loadingList[LevelManager.CurrentList].Count + " : " + LevelManager.Instance.GetLevelName(LevelManager.CurrentList,LevelManager.CurrentLevel);
+        LevelText.GetComponent<TextMeshProUGUI>().text = (LevelManager.CurrentLevel + 1) + "/" + LevelManager.loadingList[LevelManager.CurrentList].Count + " : " + LevelManager.Instance.GetLevelName(LevelManager.CurrentList, LevelManager.CurrentLevel);
+    }
+
+    public void Go(){
+        m_PlayHUD.transform.Find("GO").gameObject.SetActive(true);
     }
 
 }

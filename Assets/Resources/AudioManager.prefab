@@ -170,6 +170,18 @@ MonoBehaviour:
     Pitch: 1
     Loop: 1
     Source: {fileID: 0}
+  - name: Ready
+    Clip: {fileID: 8300000, guid: 88a683c78701a3544a78435f2ffb6260, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
+  - name: Go
+    Clip: {fileID: 8300000, guid: da029127066c6604fa0d4243d97f6d2c, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}
