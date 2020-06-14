@@ -81,6 +81,6 @@ EditorBuildSettings:
     path: Assets/Scenes/03 Expert/Modif/Highway.unity
     guid: 9832d24b04d3ecd4c8db730fa243f8c7
   - enabled: 1
-    path: Assets/Scenes/03 Expert/Modif/Alpinist.unity
+    path: Assets/Scenes/03 Expert/Modif/SpaceMountain.unity
     guid: 1e27c35d4e477b74aa3e16a017eeff49
   m_configObjects: {}
