@@ -53,6 +53,8 @@ public class AudioManager : MonoBehaviour
             s.Source.pitch = s.Pitch;
             s.Source.loop = s.Loop;
         }
+
+        GameManager.isAudio = true;
     }
 
     void Start()

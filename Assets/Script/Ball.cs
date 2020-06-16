@@ -74,7 +74,7 @@ public class Ball : MonoBehaviour
             
             if (rb.velocity.magnitude > 0.001 && SoundTimer > 10 / rb.velocity.magnitude)
             {
-                AudioManager.Instance.PlayOneShot("Rolling",0.7f + rb.velocity.magnitude/125);
+                if (GameManager.isAudio) AudioManager.Instance.PlayOneShot("Rolling",0.7f + rb.velocity.magnitude/125);
                 SoundTimer = 0;
             }
         }
@@ -107,8 +107,8 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //CollisionSound
-        if (collision.impulse.magnitude > 2.8) { AudioManager.Instance.Play("CollisionHard"); }
-        else if (collision.impulse.magnitude > 1) { AudioManager.Instance.Play("CollisionSoft"); }
+        if (collision.impulse.magnitude > 2.8) { if (GameManager.isAudio) AudioManager.Instance.Play("CollisionHard"); }
+        else if (collision.impulse.magnitude > 1) { if (GameManager.isAudio) AudioManager.Instance.Play("CollisionSoft"); }
     }
 
 }

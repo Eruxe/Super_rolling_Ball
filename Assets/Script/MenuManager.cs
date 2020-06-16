@@ -142,7 +142,7 @@ public class MenuManager : MonoBehaviour
 
     public void SelectList(int list)
     {
-        if (SelectedList != list) AudioManager.Instance.Play("LittleClick");
+        if (SelectedList != list || GameManager.isAudio) AudioManager.Instance.Play("LittleClick");
         SelectedList = list;
         SelectedLevel = 0;
         ChangeLevelSelected();
@@ -150,14 +150,14 @@ public class MenuManager : MonoBehaviour
 
     public void NextSelectLevel()
     {
-        AudioManager.Instance.Play("LittleClick");
+        if (GameManager.isAudio) AudioManager.Instance.Play("LittleClick");
         SelectedLevel++;
         ChangeLevelSelected();
     }
 
     public void PreviousSelectLevel()
     {
-        AudioManager.Instance.Play("LittleClick");
+        if (GameManager.isAudio) AudioManager.Instance.Play("LittleClick");
         SelectedLevel--;
         ChangeLevelSelected();
     }

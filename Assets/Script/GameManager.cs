@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     public static float time=0;
     public static int collectible=0;
 
+    //TESTING SCENE
+    public static bool isAudio = false;
+
     //BALL AND CAMERA
     [SerializeField] Ball ball;
     [SerializeField] CameraScript cam;
@@ -57,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
-        AudioManager.Instance.Play("Ready");
+        if(isAudio) AudioManager.Instance.Play("Ready");
         ChangeState(GAMESTATE.Ready);
     }
 
@@ -75,17 +78,17 @@ public class GameManager : MonoBehaviour
 
     public void Falling()
     {
-        AudioManager.Instance.Play("Falling");
+        if (isAudio) AudioManager.Instance.Play("Falling");
         ChangeState(GAMESTATE.Falling);
-        AudioManager.Instance.Play("FallingVoice");
+        if (isAudio) AudioManager.Instance.Play("FallingVoice");
         //Restart();
     }
 
     public void Timout()
     {
-        AudioManager.Instance.Play("Timeout");
+        if (isAudio) AudioManager.Instance.Play("Timeout");
         ChangeState(GAMESTATE.Timeout);
-        AudioManager.Instance.Play("TimeOutVoice");
+        if (isAudio) AudioManager.Instance.Play("TimeOutVoice");
         //Restart();
     }
 
@@ -117,7 +120,7 @@ public class GameManager : MonoBehaviour
         AddScore(amount);
         if (collectible >= 100)
         {
-            AudioManager.Instance.Play("LifeUp");
+            if (isAudio) AudioManager.Instance.Play("LifeUp");
             lives++;
             MenuManager.Instance.UpdateLives();
             collectible -= 100;
@@ -127,10 +130,10 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
-        AudioManager.Instance.Play("Winning");
+        if (isAudio) AudioManager.Instance.Play("Winning");
         AddScore((int)GameManager.time);
         ChangeState(GAMESTATE.Victory);
-        AudioManager.Instance.Play("GoalVoice");
+        if (isAudio) AudioManager.Instance.Play("GoalVoice");
         //LevelManager.Instance.PlayNext();
     }
 
@@ -138,12 +141,12 @@ public class GameManager : MonoBehaviour
     {
         score += value;
         MenuManager.Instance.UpdateScore();
-        SaveScore(LevelManager.CurrentList);
+        if(!LevelManager.isPractising) SaveScore(LevelManager.CurrentList);
     }
 
     public void ResetScore()
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (isAudio) AudioManager.Instance.Play("MenuClick");
         PlayerPrefs.SetInt("BeginnerScore", 0);
         PlayerPrefs.SetInt("AdvancedScore", 0);
         PlayerPrefs.SetInt("ExpertScore", 0);
@@ -213,26 +216,26 @@ public class GameManager : MonoBehaviour
 
     public void MainMenu()
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (isAudio) AudioManager.Instance.Play("MenuClick");
         ChangeState(GAMESTATE.Menu);
     }
 
     public void ArcadeMenu()
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (isAudio) AudioManager.Instance.Play("MenuClick");
         ChangeState(GAMESTATE.ArcadeMenu);
     }
 
     public void PracticeMenu()
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (isAudio) AudioManager.Instance.Play("MenuClick");
         MenuManager.Instance.ResetPractice();
         ChangeState(GAMESTATE.PracticeMenu);
     }
 
     public void OnQuit()
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (isAudio) AudioManager.Instance.Play("MenuClick");
         Debug.Log("Quit");
         Application.Quit();
     }
@@ -241,7 +244,7 @@ public class GameManager : MonoBehaviour
     public void SpawnBall(GameObject spawn)
     {
         Destroy(spawn.transform.GetChild(0).gameObject);
-        AudioManager.Instance.Play("Go");
+        if (isAudio) AudioManager.Instance.Play("Go");
         ChangeState(GAMESTATE.Play);
         MenuManager.Instance.Go();
         this.ball = Instantiate(this.ball,spawn.transform.position, spawn.transform.rotation);

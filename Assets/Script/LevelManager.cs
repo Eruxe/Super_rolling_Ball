@@ -50,7 +50,7 @@ public class LevelManager : MonoBehaviour
 
     public void Practice(int list, int level)
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = true;
         GameManager.score = 0;
         GameManager.lives = 42;
@@ -58,12 +58,12 @@ public class LevelManager : MonoBehaviour
         CurrentList = list;
         CurrentLevel = level;
         this.PlayNext();
-        AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
+        if (GameManager.isAudio) AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
     }
 
     public void BeginArcade(int list)
     {
-        AudioManager.Instance.Play("MenuClick");
+        if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = false;
         GameManager.score = 0;
         GameManager.lives = 9;
@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
         CurrentList = list;
         CurrentLevel = -1;
         this.PlayNext();
-        AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
+        if (GameManager.isAudio) AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
     }
 
     public void Restart()
@@ -80,7 +80,8 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.score = 0;
         }
-        levelToLoad = loadingList[CurrentList][CurrentLevel];
+        if (GameManager.isAudio) levelToLoad = loadingList[CurrentList][CurrentLevel];
+        else levelToLoad = SceneManager.GetActiveScene().buildIndex;
         fadeAnim.SetTrigger("FadeOut");
     }
 
@@ -90,7 +91,8 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.collectible = 0;
             GameManager.score = 0;
-            levelToLoad = loadingList[CurrentList][CurrentLevel];
+            if (GameManager.isAudio) levelToLoad = loadingList[CurrentList][CurrentLevel];
+            else levelToLoad = SceneManager.GetActiveScene().buildIndex;
             fadeAnim.SetTrigger("FadeOut");
         }
         else
@@ -124,28 +126,28 @@ public class LevelManager : MonoBehaviour
             if (toShowOnPreMenu == GAMESTATE.Congratulation)
             {
                 GameManager.Instance.Congratulation();
-                AudioManager.Instance.Play("Congratulation");
+                if (GameManager.isAudio) AudioManager.Instance.Play("Congratulation");
             }
             else if (toShowOnPreMenu == GAMESTATE.GameOver)
             {
-                GameManager.Instance.GameOver();    
-                AudioManager.Instance.Play("GameOver");
+                GameManager.Instance.GameOver();
+                if (GameManager.isAudio) AudioManager.Instance.Play("GameOver");
             }
             else GameManager.Instance.Welcome();
         }
-        AudioManager.Instance.PlayNextMusic();
+        if (GameManager.isAudio) AudioManager.Instance.PlayNextMusic();
     }
 
     public void Menu()
     {
-        AudioManager.Instance.SetNextMusic("Menu");
+        if (GameManager.isAudio) AudioManager.Instance.SetNextMusic("Menu");
         levelToLoad = 1;
         fadeAnim.SetTrigger("FadeOut");
     }
 
     public void PreMenu()
     {
-        AudioManager.Instance.SetNextMusic("null");
+        if (GameManager.isAudio) AudioManager.Instance.SetNextMusic("null");
         levelToLoad = 0;
         fadeAnim.SetTrigger("FadeOut");
     }
