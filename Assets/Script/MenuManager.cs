@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -42,6 +43,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject TimeText;
     [SerializeField] GameObject CollectiblesText;
     [SerializeField] GameObject LevelText;
+    [SerializeField] GameObject ScoreText;
+    [SerializeField] GameObject WinScoreText;
+    [SerializeField] GameObject LoseScoreText;
 
     //Practice Variables
     static int SelectedList = 0;
@@ -92,6 +96,7 @@ public class MenuManager : MonoBehaviour
                 break;
             case GAMESTATE.ArcadeMenu:
                 OpenPanel(m_MenuArcadePanel, true);
+                UpdateArcadeMenuScore();
                 break;
             case GAMESTATE.PracticeMenu:
                 OpenPanel(m_MenuPracticePanel, true);
@@ -114,9 +119,11 @@ public class MenuManager : MonoBehaviour
                 break;
             case GAMESTATE.GameOver:
                 OpenPanel(m_Gameover, false);
+                UpdateLoseScore();
                 break;
             case GAMESTATE.Congratulation:
                 OpenPanel(m_Congratulation, false);
+                UpdateWinScore();
                 break;
             case GAMESTATE.Welcome:
                 OpenPanel(m_Welcome, false);
@@ -193,6 +200,7 @@ public class MenuManager : MonoBehaviour
         UpdateCollectibles();
         UpdateTimes();
         UpdateCurrentLevel();
+        UpdateScore();
     }
     public void UpdateLives()
     {
@@ -209,9 +217,33 @@ public class MenuManager : MonoBehaviour
         TimeText.GetComponent<TextMeshProUGUI>().text = "TIME: " + GameManager.time.ToString("f1");
     }
 
+    public void UpdateScore()
+    {
+        ScoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + GameManager.score;
+    }
+
+    public void UpdateWinScore()
+    {
+        m_Congratulation.transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + GameManager.Instance.GetScore(LevelManager.CurrentList);
+        WinScoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + GameManager.score;
+    }
+
+    public void UpdateLoseScore()
+    {
+        m_Gameover.transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + GameManager.Instance.GetScore(LevelManager.CurrentList);
+        LoseScoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + GameManager.score;
+    }
+
     public void UpdateCurrentLevel()
     {
         LevelText.GetComponent<TextMeshProUGUI>().text = (LevelManager.CurrentLevel + 1) + "/" + LevelManager.loadingList[LevelManager.CurrentList].Count + " : " + LevelManager.Instance.GetLevelName(LevelManager.CurrentList, LevelManager.CurrentLevel);
+    }
+
+    public void UpdateArcadeMenuScore()
+    {
+        m_MenuArcadePanel.transform.Find("EasyButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("BeginnerScore", 0);
+        m_MenuArcadePanel.transform.Find("MediumButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("AdvancedScore", 0);
+        m_MenuArcadePanel.transform.Find("HardButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("ExpertScore", 0);
     }
 
     public void Go(){

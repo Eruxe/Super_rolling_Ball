@@ -52,6 +52,7 @@ public class LevelManager : MonoBehaviour
     {
         AudioManager.Instance.Play("MenuClick");
         isPractising = true;
+        GameManager.score = 0;
         GameManager.lives = 42;
         GameManager.collectible = 0;
         CurrentList = list;
@@ -64,6 +65,7 @@ public class LevelManager : MonoBehaviour
     {
         AudioManager.Instance.Play("MenuClick");
         isPractising = false;
+        GameManager.score = 0;
         GameManager.lives = 9;
         GameManager.collectible = 0;
         CurrentList = list;
@@ -74,6 +76,10 @@ public class LevelManager : MonoBehaviour
 
     public void Restart()
     {
+        if (isPractising)
+        {
+            GameManager.score = 0;
+        }
         levelToLoad = loadingList[CurrentList][CurrentLevel];
         fadeAnim.SetTrigger("FadeOut");
     }
@@ -83,6 +89,7 @@ public class LevelManager : MonoBehaviour
         if (isPractising)
         {
             GameManager.collectible = 0;
+            GameManager.score = 0;
             levelToLoad = loadingList[CurrentList][CurrentLevel];
             fadeAnim.SetTrigger("FadeOut");
         }
@@ -96,6 +103,7 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.AddScore(GameManager.lives * 100);
                 toShowOnPreMenu = GAMESTATE.Congratulation;
                 GameManager.Instance.PreMenu();
             }
@@ -120,7 +128,7 @@ public class LevelManager : MonoBehaviour
             }
             else if (toShowOnPreMenu == GAMESTATE.GameOver)
             {
-                GameManager.Instance.GameOver();
+                GameManager.Instance.GameOver();    
                 AudioManager.Instance.Play("GameOver");
             }
             else GameManager.Instance.Welcome();

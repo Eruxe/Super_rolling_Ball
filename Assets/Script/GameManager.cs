@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public static event Action Resuming;
 
     //VARIABLES
+    public static int score=0;
     public static int lives=9;
     public static float time=0;
     public static int collectible=0;
@@ -113,6 +114,7 @@ public class GameManager : MonoBehaviour
     public void OnCollect(int amount)
     {
         collectible += amount;
+        AddScore(amount);
         if (collectible >= 100)
         {
             AudioManager.Instance.Play("LifeUp");
@@ -126,9 +128,57 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         AudioManager.Instance.Play("Winning");
+        AddScore((int)GameManager.time);
         ChangeState(GAMESTATE.Victory);
         AudioManager.Instance.Play("GoalVoice");
         //LevelManager.Instance.PlayNext();
+    }
+
+    public void AddScore(int value)
+    {
+        score += value;
+        MenuManager.Instance.UpdateScore();
+        SaveScore(LevelManager.CurrentList);
+    }
+
+    public void ResetScore()
+    {
+        AudioManager.Instance.Play("MenuClick");
+        PlayerPrefs.SetInt("BeginnerScore", 0);
+        PlayerPrefs.SetInt("AdvancedScore", 0);
+        PlayerPrefs.SetInt("ExpertScore", 0);
+        MenuManager.Instance.UpdateArcadeMenuScore();
+    }
+
+    public void SaveScore(int list)
+    {
+        switch (list)
+        {
+            case 0:
+                if(PlayerPrefs.GetInt("BeginnerScore",0)<score) PlayerPrefs.SetInt("BeginnerScore", score);
+                break;
+            case 1:
+                if (PlayerPrefs.GetInt("AdvancedScore",0) < score)  PlayerPrefs.SetInt("AdvancedScore", score);
+                break;
+            case 2:
+                if (PlayerPrefs.GetInt("ExpertScore",0) < score) PlayerPrefs.SetInt("ExpertScore", score);
+                break;
+        }
+    }
+
+    public int GetScore(int list)
+    {
+        switch(list)
+        {
+            case 0:
+                return PlayerPrefs.GetInt("BeginnerScore", 0);
+            case 1:
+                return PlayerPrefs.GetInt("AdvancedScore", 0);
+            case 2:
+                return PlayerPrefs.GetInt("ExpertScore", 0);
+               
+        }
+        return 0;
     }
 
     public void Welcome()
