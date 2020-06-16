@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -22,11 +23,12 @@ public class FinishLine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && (GameManager.GetState == GAMESTATE.Play))
+        if (other.tag == "Player" && (GameManager.GetState == GAMESTATE.Play))
         {
             VisualEffect vfx = EnterVfx.GetComponent<VisualEffect>();
             vfx.SendEvent("OnEnterEffect");
             GameManager.Instance.Victory();
         }
     }
+
 }
