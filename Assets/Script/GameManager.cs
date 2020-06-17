@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class GameManager : MonoBehaviour
 {
@@ -28,6 +29,14 @@ public class GameManager : MonoBehaviour
 
     //TESTING SCENE
     public static bool isAudio = false;
+
+    //PORTAL MECHANICS
+    public static bool portal_1 = false;
+    public static bool portal_2 = false;
+    public static bool portal_3 = false;
+    public static bool portal_1_current = false;
+    public static bool portal_2_current = false;
+    public static bool portal_3_current = false;
 
     //BALL AND CAMERA
     [SerializeField] Ball ball;
@@ -240,7 +249,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    //Function that spawn the ball where you want
+    //Function that spawn the ball relative to the object spawn
     public void SpawnBall(GameObject spawn)
     {
         Destroy(spawn.transform.GetChild(0).gameObject);
@@ -251,6 +260,27 @@ public class GameManager : MonoBehaviour
         this.cam = Instantiate(this.cam,spawn.transform.position, spawn.transform.rotation);
         ball.SetCamera(cam);
         cam.SetBall(ball);
+    }
+
+    //Functions that check if the ball has gone through the portal, that is in reality three panel to go through without interruption
+    public void IsWin()
+    {
+        if(portal_1 && portal_2 && portal_3)
+        {
+            VisualEffect vfx = GameObject.Find("Goal").transform.Find("Cylinder").Find("EnterPortal").GetComponent<VisualEffect>();
+            vfx.SendEvent("OnEnterEffect");
+            GameManager.Instance.Victory();
+        }
+    }
+
+    public void IsExitPortal()
+    {
+        if(!portal_1_current && !portal_2_current && !portal_3_current)
+        {
+            portal_1 = false;
+            portal_2 = false;
+            portal_3 = false;
+        }
     }
 
     // Update is called once per frame

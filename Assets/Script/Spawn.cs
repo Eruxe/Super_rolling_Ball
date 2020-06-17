@@ -15,6 +15,12 @@ public class Spawn : MonoBehaviour
     {
         GameManager.Instance.Play();
         GameManager.time = StartTime;
+        GameManager.portal_1 = false;
+        GameManager.portal_2 = false;
+        GameManager.portal_3 = false;
+        GameManager.portal_1_current = false;
+        GameManager.portal_2_current = false;
+        GameManager.portal_3_current = false;
         MenuManager.Instance.UpdateHUD();
     }
 

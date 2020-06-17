@@ -12,7 +12,7 @@ public class Banana : MonoBehaviour
         if (other.tag == "Player" && (GameManager.GetState == GAMESTATE.Play))
         {
             Destroy(this.gameObject.transform.parent.gameObject);
-            AudioManager.Instance.Play("Pepper");
+            if (GameManager.isAudio) AudioManager.Instance.Play("Pepper");
             GameManager.Instance.OnCollect(ammount);
         }
     }
