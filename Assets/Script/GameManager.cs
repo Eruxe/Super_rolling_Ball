@@ -288,7 +288,7 @@ public class GameManager : MonoBehaviour
     {
         if (GameManager.GetState == GAMESTATE.Play)
         {
-            if (Input.GetKeyDown("space"))
+            if (Input.GetButtonDown("Pause"))
             {
                 Pause();
             }
@@ -302,7 +302,7 @@ public class GameManager : MonoBehaviour
         }
         else if(GameManager.GetState == GAMESTATE.Pause)
         {
-            if (Input.GetKeyDown("space"))
+            if (Input.GetButtonDown("Pause"))
             {
                 BackToPlay();
             }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
@@ -89,17 +90,23 @@ public class MenuManager : MonoBehaviour
 
     void GameStateChanged(GAMESTATE state)
     {
+        //Clear selected button
+        EventSystem.current.SetSelectedGameObject(null);
+
         switch (state)
         {
             case GAMESTATE.Menu:
                 OpenPanel(m_MenuPanel, true);
+                EventSystem.current.SetSelectedGameObject(m_MenuPanel.transform.Find("ArcadesButton").gameObject);
                 break;
             case GAMESTATE.ArcadeMenu:
                 OpenPanel(m_MenuArcadePanel, true);
+                EventSystem.current.SetSelectedGameObject(m_MenuArcadePanel.transform.Find("EasyButton").gameObject);
                 UpdateArcadeMenuScore();
                 break;
             case GAMESTATE.PracticeMenu:
                 OpenPanel(m_MenuPracticePanel, true);
+                EventSystem.current.SetSelectedGameObject(m_MenuPracticePanel.transform.Find("EasySelect").gameObject);
                 break;
             case GAMESTATE.Play:
                 OpenPanel(m_PlayHUD, false);
@@ -116,6 +123,7 @@ public class MenuManager : MonoBehaviour
                 break;
             case GAMESTATE.Pause:
                 OpenPanel(m_PausePanel, true);
+                EventSystem.current.SetSelectedGameObject(m_PausePanel.transform.Find("Continue button").gameObject);
                 break;
             case GAMESTATE.GameOver:
                 OpenPanel(m_Gameover, false);
@@ -142,10 +150,12 @@ public class MenuManager : MonoBehaviour
 
     public void SelectList(int list)
     {
-        if (SelectedList != list || GameManager.isAudio) AudioManager.Instance.Play("LittleClick");
-        SelectedList = list;
-        SelectedLevel = 0;
-        ChangeLevelSelected();
+        if (SelectedList != list) {
+            if (GameManager.isAudio) AudioManager.Instance.Play("LittleClick");
+            SelectedList = list;
+            SelectedLevel = 0;
+            ChangeLevelSelected();
+        }
     }
 
     public void NextSelectLevel()
@@ -166,6 +176,11 @@ public class MenuManager : MonoBehaviour
     {
         PreviousButton.GetComponent<Button>().interactable = SelectedLevel > 0;
         NextButton.GetComponent<Button>().interactable = !LevelManager.Instance.IsLastInList(SelectedList, SelectedLevel);
+        if (SelectedLevel <= 0 || LevelManager.Instance.IsLastInList(SelectedList, SelectedLevel))
+        {
+            string[] OutCursorDestination = { "EasySelect", "MediumSelect", "HardSelect" };
+            EventSystem.current.SetSelectedGameObject(m_MenuPracticePanel.transform.Find(OutCursorDestination[SelectedList]).gameObject);
+        }
         switch (SelectedList)
         {
             case 0:
