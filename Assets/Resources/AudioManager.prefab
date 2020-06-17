@@ -182,6 +182,12 @@ MonoBehaviour:
     Pitch: 1
     Loop: 0
     Source: {fileID: 0}
+  - name: Sparkle
+    Clip: {fileID: 8300000, guid: 26f631ac00776ab41812d44bf9f04573, type: 3}
+    Volume: 0.6
+    Pitch: 1
+    Loop: 0
+    Source: {fileID: 0}
   CurrentMusic:
     name: 
     Clip: {fileID: 0}

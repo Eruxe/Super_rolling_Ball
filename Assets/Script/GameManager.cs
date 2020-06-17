@@ -256,6 +256,9 @@ public class GameManager : MonoBehaviour
         if (isAudio) AudioManager.Instance.Play("Go");
         ChangeState(GAMESTATE.Play);
         MenuManager.Instance.Go();
+        VisualEffect vfx = spawn.transform.Find("SpawnEffect").GetComponent<VisualEffect>();
+        if (isAudio) AudioManager.Instance.Play("Sparkle");
+        vfx.SendEvent("OnSpawn");
         this.ball = Instantiate(this.ball,spawn.transform.position, spawn.transform.rotation);
         this.cam = Instantiate(this.cam,spawn.transform.position, spawn.transform.rotation);
         ball.SetCamera(cam);
