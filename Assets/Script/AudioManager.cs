@@ -137,6 +137,11 @@ public class AudioManager : MonoBehaviour
         if (CurrentMusic.Source != null) CurrentMusic.Source.Stop();
     }
 
+    public void SetMusicVolume(float volume)
+    {
+        if (CurrentMusic.Source != null) CurrentMusic.Source.volume = volume;
+    }
+
     public void PlayOneShot(string name,float pitch)
     {
         Sound s = Array.Find(Sounds, sound => sound.name == name);

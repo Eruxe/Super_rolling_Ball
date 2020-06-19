@@ -77,12 +77,14 @@ public class GameManager : MonoBehaviour
     {
         if (Resuming != null) Resuming();
         ChangeState(GAMESTATE.Play);
+        AudioManager.Instance.SetMusicVolume(0.5f);
     }
 
     public void Pause()
     {
         if (Pausing != null) Pausing();
         ChangeState(GAMESTATE.Pause);
+        AudioManager.Instance.SetMusicVolume(0.15f);
     }
 
     public void Falling()
