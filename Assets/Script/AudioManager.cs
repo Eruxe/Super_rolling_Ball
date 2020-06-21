@@ -81,6 +81,7 @@ public class AudioManager : MonoBehaviour
         {
             StopMusic();
             CurrentMusic = NextMusic;
+            SetMusicVolume(0.5f);
             CurrentMusic.Source.Play();
         }
         else if(NextMusic == null)
