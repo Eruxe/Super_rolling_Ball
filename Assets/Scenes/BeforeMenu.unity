@@ -663,11 +663,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Mael Szeles
+  m_text: 'Mael Szeles : Gameplay & Level
 
-    Alexandre Maneta
+    Alexandre Maneta : Level & Music
 
-    Mathilde Corradi'
+    Mathilde
+    Corradi : Asset, Sound & Planning'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -736,10 +737,10 @@ MonoBehaviour:
   m_margin: {x: -236.11456, y: 96.91058, z: -119.6631, w: -78.17453}
   m_textInfo:
     textComponent: {fileID: 1031713841}
-    characterCount: 45
+    characterCount: 106
     spriteCount: 0
-    spaceCount: 5
-    wordCount: 6
+    spaceCount: 18
+    wordCount: 13
     linkCount: 0
     lineCount: 3
     pageCount: 1
