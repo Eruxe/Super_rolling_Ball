@@ -224,7 +224,8 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateCollectibles()
     {
-        CollectiblesText.GetComponent<TextMeshProUGUI>().text = "PEPPER: " + GameManager.collectible;
+        if (!LevelManager.isSurvival) CollectiblesText.GetComponent<TextMeshProUGUI>().text = "PEPPER: " + GameManager.collectible;
+        else CollectiblesText.GetComponent<TextMeshProUGUI>().text = "";
     }
 
     public void UpdateTimes()
@@ -251,7 +252,8 @@ public class MenuManager : MonoBehaviour
 
     public void UpdateCurrentLevel()
     {
-        LevelText.GetComponent<TextMeshProUGUI>().text = (LevelManager.CurrentLevel + 1) + "/" + LevelManager.loadingList[LevelManager.CurrentList].Count + " : " + LevelManager.Instance.GetLevelName(LevelManager.CurrentList, LevelManager.CurrentLevel);
+        if (!LevelManager.isSurvival) LevelText.GetComponent<TextMeshProUGUI>().text = (LevelManager.CurrentLevel + 1) + "/" + LevelManager.loadingList[LevelManager.CurrentList].Count + " : " + LevelManager.Instance.GetLevelName(LevelManager.CurrentList, LevelManager.CurrentLevel);
+        else LevelText.GetComponent<TextMeshProUGUI>().text = "∞ : Survival";
     }
 
     public void UpdateArcadeMenuScore()
@@ -259,6 +261,7 @@ public class MenuManager : MonoBehaviour
         m_MenuArcadePanel.transform.Find("EasyButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("BeginnerScore", 0);
         m_MenuArcadePanel.transform.Find("MediumButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("AdvancedScore", 0);
         m_MenuArcadePanel.transform.Find("HardButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("ExpertScore", 0);
+        m_MenuArcadePanel.transform.Find("SurvivalButton").transform.Find("Highscore").GetComponent<TextMeshProUGUI>().text = "Highscore: " + PlayerPrefs.GetInt("SurvivalScore", 0);
     }
 
     public void Go(){

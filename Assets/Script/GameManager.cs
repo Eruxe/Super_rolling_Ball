@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         if (isAudio) AudioManager.Instance.Play("Winning");
-        AddScore((int)GameManager.time);
+        if(!LevelManager.isSurvival) AddScore((int)GameManager.time);
         ChangeState(GAMESTATE.Victory);
         if (isAudio) AudioManager.Instance.Play("GoalVoice");
         //LevelManager.Instance.PlayNext();
@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("BeginnerScore", 0);
         PlayerPrefs.SetInt("AdvancedScore", 0);
         PlayerPrefs.SetInt("ExpertScore", 0);
+        PlayerPrefs.SetInt("SurvivalScore", 0);
         MenuManager.Instance.UpdateArcadeMenuScore();
     }
 
@@ -177,6 +178,9 @@ public class GameManager : MonoBehaviour
             case 2:
                 if (PlayerPrefs.GetInt("ExpertScore",0) < score) PlayerPrefs.SetInt("ExpertScore", score);
                 break;
+            case 3:
+                if (PlayerPrefs.GetInt("SurvivalScore", 0) < score) PlayerPrefs.SetInt("SurvivalScore", score);
+                break;
         }
     }
 
@@ -190,7 +194,9 @@ public class GameManager : MonoBehaviour
                 return PlayerPrefs.GetInt("AdvancedScore", 0);
             case 2:
                 return PlayerPrefs.GetInt("ExpertScore", 0);
-               
+            case 3:
+                return PlayerPrefs.GetInt("SurvivalScore", 0);
+
         }
         return 0;
     }

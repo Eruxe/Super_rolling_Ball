@@ -15,12 +15,14 @@ public class LevelManager : MonoBehaviour
     [SerializeField] public List<int> BeginnerList;
     [SerializeField] public List<int> AdvancedList;
     [SerializeField] public List<int> ExpertList;
+    [SerializeField] public List<int> SurvivalList;
 
 
     public static int CurrentLevel;
     public static List<List<int>> loadingList;
     public static int CurrentList;
     public static bool isPractising = true;
+    public static bool isSurvival = false;
     public int levelToLoad;
     public GAMESTATE toShowOnPreMenu;
 
@@ -45,6 +47,7 @@ public class LevelManager : MonoBehaviour
         loadingList.Add(new List<int>(BeginnerList));
         loadingList.Add(new List<int>(AdvancedList));
         loadingList.Add(new List<int>(ExpertList));
+        loadingList.Add(new List<int>(SurvivalList));
         m_IsReady = true;
     }
 
@@ -52,6 +55,7 @@ public class LevelManager : MonoBehaviour
     {
         if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = true;
+        isSurvival = false;
         GameManager.score = 0;
         GameManager.lives = 42;
         GameManager.collectible = 0;
@@ -61,10 +65,25 @@ public class LevelManager : MonoBehaviour
         if (GameManager.isAudio) AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
     }
 
+    public void Survival()
+    {
+        if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
+        isPractising = false;
+        isSurvival = true;
+        GameManager.score = -1;
+        GameManager.lives = 0;
+        GameManager.collectible = 0;
+        CurrentList = 3;
+        CurrentLevel = 0;
+        this.PlayNext();
+        if (GameManager.isAudio) AudioManager.Instance.SetMusicFromDifficulty(CurrentList);
+    }
+
     public void BeginArcade(int list)
     {
         if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = false;
+        isSurvival = false;
         GameManager.score = 0;
         GameManager.lives = 9;
         GameManager.collectible = 0;
@@ -91,6 +110,14 @@ public class LevelManager : MonoBehaviour
         {
             GameManager.collectible = 0;
             GameManager.score = 0;
+            if (GameManager.isAudio) levelToLoad = loadingList[CurrentList][CurrentLevel];
+            else levelToLoad = SceneManager.GetActiveScene().buildIndex;
+            fadeAnim.SetTrigger("FadeOut");
+        }
+        else if (isSurvival)
+        {
+            GameManager.collectible = 0;
+            GameManager.Instance.AddScore(1);
             if (GameManager.isAudio) levelToLoad = loadingList[CurrentList][CurrentLevel];
             else levelToLoad = SceneManager.GetActiveScene().buildIndex;
             fadeAnim.SetTrigger("FadeOut");

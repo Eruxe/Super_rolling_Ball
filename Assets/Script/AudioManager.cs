@@ -127,6 +127,9 @@ public class AudioManager : MonoBehaviour
             case 2:
                 SetNextMusic("MusicExpert");
                 break;
+            case 3:
+                SetNextMusic("MusicExpert");
+                break;
             default:
                 Debug.Log("no music associated with list: " + list);
                 break;
