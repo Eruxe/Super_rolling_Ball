@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using Random = System.Random;
 
 public class meshProc : MonoBehaviour
 {
@@ -19,6 +20,20 @@ public class meshProc : MonoBehaviour
 
     delegate float TwoVariablesFunction(float x1, float x2);
 
+    public class MeshAndPos
+    {
+        public Mesh mesh;
+        public Vector3 pos;
+        public float width;
+
+        public MeshAndPos(Mesh mesh, Vector3 pos,float width)
+        {
+            this.mesh = mesh;
+            this.pos = pos;
+            this.width = width;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,63 +41,168 @@ public class meshProc : MonoBehaviour
 
         //Generation de seed
         //int seed = 45878;
-        System.Random rnd = new System.Random();
-        int seed = rnd.Next(10000, 99999);
+        Random rnd = new Random();
+        int seed = rnd.Next(0, 999999999);
+        Random Generator = new Random(seed);
 
 
-        int nbPlat = (seed%7)+4;
+        int nbPlat = Generator.Next(4,10);
         float sizex;
         float sizez;
         float sizey;
         float cursorx = transform.position.x;
         float cursory = transform.position.y;
         float cursorz = transform.position.z;
-
-
+        sizez = Generator.Next(3, 6);
+        float nextSizeZ = sizez;
+        int chaosFrequencyY = Generator.Next(20, 90);
+        int chaosFrequencyWidth = Generator.Next(20, 60);
+        int chaosFrequencyZ = Generator.Next(10, 50);
 
         for (int i = 0; i < nbPlat; i++)
         {
-            //taille de la plateforme
-            sizex = ((seed / (i+1)) % 5) + 2;
-            sizez = ((seed / (i + 1)) % 4) + 2;
 
-            //Deplacement vertical
-            if ((seed+i) % 7 == 1 && i>0 && i<nbPlat-1)
+            //taille de la plateforme
+            sizex = Generator.Next(6, 9);
+
+
+            TwoVariablesFunction heighfunct = (pas, z) => Mathf.Lerp(0, 0, pas);
+            TwoVariablesFunction widthfunct = (pas, z) => Mathf.Lerp(0, 0, pas);
+            TwoVariablesFunction zfunct = (pas, z) => Mathf.Lerp(0, 0, pas);
+            //Mutations
+            if (i<nbPlat-1 && i>0)
             {
-                sizey = (0.5f)*sizex;
-            }
-            else
-            {
-                sizey = 0;
+                heighfunct = MutationSelectorY(Generator, chaosFrequencyY, ref sizex);
+                int zModifier = Generator.Next(3);
+                if (zModifier <= 1) zfunct = MutationSelectorZ(Generator, chaosFrequencyZ, ref sizex);
+                else widthfunct = MutationSelectorWidth(Generator, chaosFrequencyWidth, sizez);
             }
 
             //Centrage du spawn
             if (i == 0) cursorx -= sizex / 2;
 
-            //Goal
+            //Goal et widthMutation
+            
             if (i == nbPlat - 1)
             {
                 goal.transform.position = new Vector3(cursorx + sizex / 2, cursory, cursorz);
-                sizez = ((seed / (i + 1)) % 2) + 4;
+                nextSizeZ = Generator.Next(4, 6);
+                widthfunct = (pas, z) => Mathf.Lerp(0, nextSizeZ - sizez, pas);
             }
 
             //Ajout d'une plateforme
             Currentprefab = Instantiate(prefab, new Vector3(cursorx, cursory, cursorz), Quaternion.identity) as GameObject;
             CurrentMeshFilter = Currentprefab.GetComponent(typeof(MeshFilter)) as MeshFilter;
 
-            CurrentMeshFilter.sharedMesh = GenerateMutatedPlaneXZ(new Vector2(sizex, sizez),30,30,(x, z) => Mathf.Lerp(0, sizey, x));
+            MeshAndPos meshandpos = GenerateMutatedPlaneXZ(new Vector2(sizex, sizez), 30, 30, heighfunct, widthfunct, zfunct);
+
+            CurrentMeshFilter.sharedMesh = meshandpos.mesh;
 
             Currentprefab.AddComponent<MeshCollider>();
 
-            
+
             //Deplacement du curseur
-            cursorx += sizex;
-            cursory += sizey;
+            sizez = meshandpos.width;
+            cursorx += meshandpos.pos.x;
+            cursory += meshandpos.pos.y;
+            cursorz += meshandpos.pos.z- sizez/2;
+            
         }
 
     }
 
-    Mesh GenerateMutatedPlaneXZ(Vector2 size, int nSegmentsX, int nSegmentsZ, TwoVariablesFunction heightFunction)
+    TwoVariablesFunction MutationSelectorY(Random Generator,int chaosFrequencyY,ref float sizex)
+    {
+        //VARIABLES POUR LES MUTATIONS
+        float copyx = sizex;
+        float intensity;
+        float frequency = (float)Math.PI * 2;
+        int negative;
+
+        if (Generator.Next(100) > chaosFrequencyY)
+        {
+            int select = Generator.Next(6);
+            negative = Generator.Next(2);
+            //SELECTEUR MANUEL CI DESSOUS
+            //select = 5;
+
+            switch (select) {
+                case 0:
+                    if (negative > 0) copyx = -sizex;
+                    return (pas, z) => Mathf.Lerp(0, copyx * 0.5f, pas);
+                case 2:
+                    sizex += Generator.Next(4,9);
+                    intensity = (float)(Generator.Next(10, 20))/10;
+                    return (theta, z) => (intensity * Mathf.Cos(theta * frequency)-intensity);
+                case 3:
+                    sizex += Generator.Next(6, 11);
+                    intensity = (float)(Generator.Next(10, 20)) / 10;
+                    return (theta, z) => (intensity * Mathf.Cos(theta * frequency + (float)Math.PI) +  intensity);
+                case 4:
+                    intensity = (float)(Generator.Next(6, 9)) / 10;
+                    frequency = 8;
+                    return (pas, z) => Mathf.Lerp(0, copyx * 0.3f + (intensity * Mathf.Sin(pas * frequency)), pas);
+                case 5:
+                    sizex += Generator.Next(3,7);
+                    copyx = sizex;
+                    intensity = (float)(Generator.Next(7, 17)) / 10;
+                    return (pas, z) => Mathf.Lerp(0, -copyx * 0.5f + (intensity * Mathf.Sin(pas * frequency)), pas);
+            }
+        }
+        return (pas, z) => Mathf.Lerp(0, 0, pas);
+    }
+
+    TwoVariablesFunction MutationSelectorWidth(Random Generator,int chaosFrequencyZ,float sizez)
+    {
+        if (Generator.Next(100) > chaosFrequencyZ)
+        {
+           int nextSizeZ = Generator.Next(2, 7);
+           return (pas, z) => Mathf.Lerp(0, nextSizeZ - sizez, pas);
+        }
+        return (pas, z) => Mathf.Lerp(0, 0, pas);
+    }
+
+    TwoVariablesFunction MutationSelectorZ(Random Generator, int chaosFrequencyZ, ref float sizex)
+    {
+        //VAR POUR MUTATION
+        float copyx = sizex;
+        float angle;
+        float intensity;
+        float frequency;
+        int negative;
+
+        if (Generator.Next(100) > chaosFrequencyZ)
+        {
+            int select = Generator.Next(3);
+            negative = Generator.Next(2);
+            //SELECTEUR MANUEL CI DESSOUS
+            //select = 0;
+
+            switch (select){
+                case 0:
+                    angle = (float)(Generator.Next(3, 12)) / 10;
+                    if (negative > 0) copyx = -sizex;
+                    return (pas, z) => Mathf.Lerp(0, copyx * angle, pas);
+                case 1:
+                    sizex += Generator.Next(3, 10);
+                    copyx = sizex;
+                    intensity = (float)(Generator.Next(20, 35)) / 10;
+                    frequency = (float)(Generator.Next(5, 9));
+                    return (pas, z) => Mathf.Lerp(0, intensity * Mathf.Sin(pas * frequency), pas);
+                case 2:
+                    angle = (float)(Generator.Next(3, 8)) / 10;
+                    sizex += Generator.Next(3, 8);
+                    copyx = sizex;
+                    if (negative > 0) copyx = -sizex;
+                    intensity = (float)(Generator.Next(20, 35)) / 10;
+                    frequency = (float)(Generator.Next(5, 9));
+                    return (pas, z) => Mathf.Lerp(0, copyx * angle + (intensity * Mathf.Sin(pas * frequency)), pas);
+            }
+        }
+        return (pas, z) => Mathf.Lerp(0, 0, pas);
+    }
+
+    MeshAndPos GenerateMutatedPlaneXZ(Vector2 size, int nSegmentsX, int nSegmentsZ, TwoVariablesFunction heightFunction, TwoVariablesFunction widthFunction, TwoVariablesFunction zFunction)
 
     {
         Mesh mesh = new Mesh();
@@ -95,6 +215,11 @@ public class meshProc : MonoBehaviour
 
         Vector2 halfSize = size * .5f;
 
+        float x=0;
+        float y=0;
+        float z=0;
+        float width = 0;
+
         // remplissage des vertices, normals, uv
         for (int i = 0; i < nSegmentsZ + 1; i++)
         {
@@ -103,10 +228,11 @@ public class meshProc : MonoBehaviour
             for (int j = 0; j < nSegmentsX + 1; j++)
             {
                 float kX = (float)j / nSegmentsX;
-                float x = Mathf.Lerp(0, size.x, kX);
-                float z = Mathf.Lerp(-size.y/2, size.y/2, kZ);
+                width = size.y+widthFunction(kX*2, kZ);
 
-                float y = heightFunction(kX, kZ);
+                x = Mathf.Lerp(0, size.x, kX);
+                z = Mathf.Lerp(-width/2, width / 2, kZ)+ zFunction(kX,kZ);
+                y = heightFunction(kX, kZ);
 
                 vertices[offset + j] = new Vector3(x, y, z);
                 normals[offset + j] = Vector3.up;
@@ -139,7 +265,9 @@ public class meshProc : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
 
-        return mesh;
+        MeshAndPos result = new MeshAndPos(mesh, new Vector3(x,y,z),width);
+
+        return result;
     }
 
     // Update is called once per frame
