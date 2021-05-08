@@ -81,6 +81,7 @@
     <Compile Include="Assets\Script\Sound.cs" />
     <Compile Include="Assets\Script\Spawn.cs" />
     <Compile Include="Assets\Script\Survival\Generator.cs" />
+    <Compile Include="Assets\Script\Survival\Mutations.cs" />
     <Compile Include="Assets\Script\Survival\meshProc.cs" />
     <Compile Include="Assets\Script\TranslatePlatform.cs" />
     <Compile Include="Assets\SplineMesh\Scripts\Bezier\CubicBezierCurve.cs" />
