@@ -23,7 +23,7 @@ public class Mutations : MonoBehaviour
             int select = Generator.Next(5);
             negative = Generator.Next(2);
             //SELECTEUR MANUEL CI DESSOUS
-            //select = 5;
+            //select = 1;
 
             switch (select)
             {
@@ -31,12 +31,12 @@ public class Mutations : MonoBehaviour
                     if (negative > 0) copyx = -sizex;
                     return (pas, z) => Mathf.Lerp(0, copyx * 0.5f, pas);
                 case 1: //VAGUE BASSE
-                    sizex += Generator.Next(4, 9);
-                    intensity = (float)(Generator.Next(10, 20)) / 10;
+                    sizex += Generator.Next(8, 15);
+                    intensity = (float)(Generator.Next(10, 25)) / 10;
                     return (pas, z) => (intensity * Mathf.Cos(pas * frequency) - intensity);
-                case 2: //VAGUE BASSE
-                    sizex += Generator.Next(6, 11);
-                    intensity = (float)(Generator.Next(10, 20)) / 10;
+                case 2: //VAGUE HAUTE
+                    sizex += Generator.Next(6, 12);
+                    intensity = (float)(Generator.Next(8, 15)) / 10;
                     return (pas, z) => (intensity * Mathf.Cos(pas * frequency + (float)Math.PI) + intensity);
                 case 3: //VAGUE MONTE
                     intensity = (float)(Generator.Next(6, 9)) / 10;
@@ -85,9 +85,9 @@ public class Mutations : MonoBehaviour
                     if (negative > 0) copyx = -sizex;
                     return (pas, z) => Mathf.Lerp(0, copyx * angle, pas);
                 case 1: //VAGUES DROITE
-                    sizex += Generator.Next(3, 10);
+                    sizex += Generator.Next(5, 10);
                     copyx = sizex;
-                    intensity = (float)(Generator.Next(20, 35)) / 10;
+                    intensity = (float)(Generator.Next(15, 25)) / 10;
                     frequency = (float)(Generator.Next(5, 9));
                     if (negative > 0) intensity = -intensity;
                     return (pas, z) => (intensity * Mathf.Cos(pas * frequency) - intensity);
