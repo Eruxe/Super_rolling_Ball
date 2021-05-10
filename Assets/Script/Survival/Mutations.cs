@@ -104,4 +104,14 @@ public class Mutations : MonoBehaviour
         return (pas, z) => Mathf.Lerp(0, 0, pas);
     }
 
+    public static float SelectorRotation(Random Generator, int chaosFrequencyRotation, float cursorRotation)
+    {
+        if (Generator.Next(100) > chaosFrequencyRotation)
+        {
+            int targetRotation = Generator.Next(-80, 81);
+            return targetRotation;
+        }
+        return cursorRotation;
+    }
+
 }
