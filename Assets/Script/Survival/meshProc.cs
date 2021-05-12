@@ -38,8 +38,8 @@ public class meshProc : MonoBehaviour
     {
         //Generation de seed
         //int seed = 45878;
-        Random rnd = new Random();
-        int seed = rnd.Next(0, 999999999);
+        if (GameManager.seed == 0) GameManager.seed = new Random().Next(1, 999999999);
+        int seed = GameManager.seed;
         Random Generator = new Random(seed);
 
         int nbPlat = Generator.Next(4,10);
@@ -202,7 +202,22 @@ public class meshProc : MonoBehaviour
                     z = pointToPivot.z;
                     y = pointToPivot.y;
                 }
-                
+
+                if (j == 1 && Mathf.Abs(targetRotation - cursorRotation) > 90)
+                {
+                    Vector3 pivot = new Vector3(0, 0, 0);
+                    if (targetRotation - cursorRotation < 0)
+                    {
+                        pivot = new Vector3(0, 0, size.y);
+                    }
+                    float angleToPivot = (targetRotation - cursorRotation)/2;
+                    Vector3 pointToPivot = new Vector3(x, y, z);
+                    pointToPivot = RotatePointAroundPivot(pointToPivot, pivot, new Vector3(0, -angleToPivot, 0));
+                    x = pointToPivot.x;
+                    z = pointToPivot.z;
+                    y = pointToPivot.y;
+                }
+
                 //UP
                 vertices[offset + j] = new Vector3(x, y, z);
                 normals[offset + j] = Vector3.up;

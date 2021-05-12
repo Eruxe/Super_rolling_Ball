@@ -94,12 +94,12 @@ public class Ball : MonoBehaviour
     {
         SavedVelocity = rb.velocity;
         SavedAngular = rb.angularVelocity;
-        rb.isKinematic = true;
+        rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
     }
 
     public void OnResume()
     {
-        rb.isKinematic = false;
+        rb.constraints -= RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
         rb.AddForce(SavedVelocity, ForceMode.VelocityChange);
         rb.AddTorque(SavedAngular, ForceMode.VelocityChange);
     }

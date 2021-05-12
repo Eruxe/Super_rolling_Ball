@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = System.Random;
 
 public class LevelManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public static int CurrentList;
     public static bool isPractising = true;
     public static bool isSurvival = false;
+    public static bool isSurvivalPractice = false;
     public int levelToLoad;
     public GAMESTATE toShowOnPreMenu;
 
@@ -56,6 +58,7 @@ public class LevelManager : MonoBehaviour
         if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = true;
         isSurvival = false;
+        isSurvivalPractice = false;
         GameManager.score = 0;
         GameManager.lives = 42;
         GameManager.collectible = 0;
@@ -70,9 +73,18 @@ public class LevelManager : MonoBehaviour
         if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = false;
         isSurvival = true;
+        isSurvivalPractice = false;
         GameManager.score = -1;
-        GameManager.lives = 0;
+        GameManager.lives = 3;
         GameManager.collectible = 0;
+        GameManager.seed = new Random().Next(1, 999999999);
+        int inputSeed = MenuManager.Instance.getSeedInput();
+        if (inputSeed != -1)
+        {
+            isSurvivalPractice = true;
+            GameManager.lives = 99;
+            GameManager.seed = inputSeed;
+        }
         CurrentList = 3;
         CurrentLevel = 0;
         this.PlayNext();
@@ -84,6 +96,7 @@ public class LevelManager : MonoBehaviour
         if (GameManager.isAudio) AudioManager.Instance.Play("MenuClick");
         isPractising = false;
         isSurvival = false;
+        isSurvivalPractice = false;
         GameManager.score = 0;
         GameManager.lives = 9;
         GameManager.collectible = 0;
@@ -98,6 +111,10 @@ public class LevelManager : MonoBehaviour
         if (isPractising)
         {
             GameManager.score = 0;
+        }
+        else if (isSurvival)
+        {
+            if(!isSurvivalPractice) GameManager.seed = new Random().Next(1, 999999999);
         }
         if (GameManager.isAudio) levelToLoad = loadingList[CurrentList][CurrentLevel];
         else levelToLoad = SceneManager.GetActiveScene().buildIndex;
@@ -117,7 +134,11 @@ public class LevelManager : MonoBehaviour
         else if (isSurvival)
         {
             GameManager.collectible = 0;
-            GameManager.Instance.AddScore(1);
+            if (!isSurvivalPractice)
+            {
+                GameManager.Instance.AddScore(1);
+                GameManager.seed = new Random().Next(1, 999999999);
+            }
             if (GameManager.isAudio) levelToLoad = loadingList[CurrentList][CurrentLevel];
             else levelToLoad = SceneManager.GetActiveScene().buildIndex;
             fadeAnim.SetTrigger("FadeOut");

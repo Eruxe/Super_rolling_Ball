@@ -123,6 +123,9 @@ public class MenuManager : MonoBehaviour
                 break;
             case GAMESTATE.Pause:
                 OpenPanel(m_PausePanel, true);
+                TextMeshProUGUI pauseText = m_PausePanel.transform.Find("PAUSE text").gameObject.GetComponent<TextMeshProUGUI>();
+                if (LevelManager.isSurvival) pauseText.text = "Seed: " + GameManager.seed;
+                else pauseText.text = "Pause";
                 EventSystem.current.SetSelectedGameObject(m_PausePanel.transform.Find("Continue button").gameObject);
                 break;
             case GAMESTATE.GameOver:
@@ -266,6 +269,13 @@ public class MenuManager : MonoBehaviour
 
     public void Go(){
         m_PlayHUD.transform.Find("GO").gameObject.SetActive(true);
+    }
+
+    public int getSeedInput()
+    {
+        TMP_InputField input = m_MenuArcadePanel.transform.Find("SeedInput").GetComponent<TMP_InputField>();
+        if (input.text == "") return -1;
+        return int.Parse(input.text);
     }
 
 }

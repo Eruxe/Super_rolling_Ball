@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     public static float time=0;
     public static int collectible=0;
 
+    //SURVIVAL
+    public static int seed = 0;
+
     //TESTING SCENE
     public static bool isAudio = false;
 
@@ -105,7 +108,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        if (!LevelManager.isPractising)
+        if (!LevelManager.isPractising && !LevelManager.isSurvivalPractice)
         {
             lives -= 1;
             MenuManager.Instance.UpdateLives();
