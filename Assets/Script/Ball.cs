@@ -63,7 +63,7 @@ public class Ball : MonoBehaviour
             rb.angularVelocity = Vector3.Lerp(rb.angularVelocity, Vector3.zero, 5 * Time.deltaTime);
         }
 
-        if (transform.position.y < -10 && GameManager.GetState == GAMESTATE.Play)
+        if (transform.position.y < GameManager.fallTresh && GameManager.GetState == GAMESTATE.Play)
         {
             GameManager.Instance.Falling();
         }

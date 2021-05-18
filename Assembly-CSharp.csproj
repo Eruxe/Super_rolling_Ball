@@ -80,7 +80,6 @@
     <Compile Include="Assets\Script\RotateReturn.cs" />
     <Compile Include="Assets\Script\Sound.cs" />
     <Compile Include="Assets\Script\Spawn.cs" />
-    <Compile Include="Assets\Script\Survival\Generator.cs" />
     <Compile Include="Assets\Script\Survival\Mutations.cs" />
     <Compile Include="Assets\Script\Survival\meshProc.cs" />
     <Compile Include="Assets\Script\TranslatePlatform.cs" />

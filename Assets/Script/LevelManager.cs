@@ -62,6 +62,7 @@ public class LevelManager : MonoBehaviour
         GameManager.score = 0;
         GameManager.lives = 42;
         GameManager.collectible = 0;
+        GameManager.fallTresh = -10;
         CurrentList = list;
         CurrentLevel = level;
         this.PlayNext();
@@ -77,6 +78,7 @@ public class LevelManager : MonoBehaviour
         GameManager.score = -1;
         GameManager.lives = 3;
         GameManager.collectible = 0;
+        GameManager.fallTresh = -10;
         GameManager.seed = new Random().Next(1, 999999999);
         int inputSeed = MenuManager.Instance.getSeedInput();
         if (inputSeed != -1)
@@ -100,6 +102,7 @@ public class LevelManager : MonoBehaviour
         GameManager.score = 0;
         GameManager.lives = 9;
         GameManager.collectible = 0;
+        GameManager.fallTresh = -10;
         CurrentList = list;
         CurrentLevel = -1;
         this.PlayNext();

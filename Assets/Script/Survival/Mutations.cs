@@ -20,10 +20,10 @@ public class Mutations : MonoBehaviour
 
         if (Generator.Next(100) > chaosFrequencyY)
         {
-            int select = Generator.Next(5);
+            int select = Generator.Next(7);
             negative = Generator.Next(2);
             //SELECTEUR MANUEL CI DESSOUS
-            //select = 1;
+            //select = 6;
 
             switch (select)
             {
@@ -47,6 +47,14 @@ public class Mutations : MonoBehaviour
                     copyx = sizex;
                     intensity = (float)(Generator.Next(7, 17)) / 10;
                     return (pas, z) => Mathf.Lerp(0, -copyx * 0.5f + (intensity * Mathf.Sin(pas * frequency)), pas);
+                case 5: //Grande chute
+                    sizex += Generator.Next(4, 8);
+                    intensity = (float)(Generator.Next(7, 11));
+                    return (pas, z) => Mathf.Lerp(0, Mathf.Sin(pas * ((float)Math.PI * 0.5f) + (float)Math.PI)* intensity, 1);
+                case 6: //Quarter Pipe
+                    sizex += Generator.Next(3, 4);
+                    intensity = (float)(Generator.Next(7, 10));
+                    return (pas, z) => Mathf.Lerp(0, Mathf.Cos(pas-(float)Math.PI) *intensity + intensity, 1);
             }
         }
         return (pas, z) => Mathf.Lerp(0, 0, pas);
@@ -73,10 +81,10 @@ public class Mutations : MonoBehaviour
 
         if (Generator.Next(100) > chaosFrequencyZ)
         {
-            int select = Generator.Next(3);
+            int select = Generator.Next(4);
             negative = Generator.Next(2);
             //SELECTEUR MANUEL CI DESSOUS
-            //select = 2;
+            //select = 3;
 
             switch (select)
             {
@@ -99,6 +107,11 @@ public class Mutations : MonoBehaviour
                     intensity = (float)(Generator.Next(20, 35)) / 10;
                     frequency = (float)(Generator.Next(5, 9));
                     return (pas, z) => Mathf.Lerp(0, copyx * angle + (intensity * Mathf.Sin(pas * frequency)), pas);
+                case 4: //SPLIT
+                    angle = (float)(Generator.Next(10, 18)) / 10;
+                    sizex += Generator.Next(9, 12);
+                    if (negative > 0) copyx = -sizex;
+                    return (pas, z) => Mathf.Lerp(0, copyx*angle,((pas<0.5f)?pas: 1-pas));
             }
         }
         return (pas, z) => Mathf.Lerp(0, 0, pas);
@@ -108,8 +121,8 @@ public class Mutations : MonoBehaviour
     {
         if (Generator.Next(100) > chaosFrequencyRotation)
         {
-            int targetRotation = Generator.Next(-80, 81);
-            return targetRotation;
+            int targetRotation = Generator.Next(-150, 150);
+            return cursorRotation+targetRotation;
         }
         return cursorRotation;
     }

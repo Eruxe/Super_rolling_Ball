@@ -23,13 +23,15 @@ public class meshProc : MonoBehaviour
         public Mesh mesh;
         public Vector3 pos;
         public float width;
-        
+        public Vector3 middle;
 
-        public MeshAndPos(Mesh mesh, Vector3 pos,float width)
+
+        public MeshAndPos(Mesh mesh, Vector3 pos,float width,Vector3 middle)
         {
             this.mesh = mesh;
             this.pos = pos;
             this.width = width;
+            this.middle = middle;
         }
     }
 
@@ -37,12 +39,11 @@ public class meshProc : MonoBehaviour
     void Start()
     {
         //Generation de seed
-        //int seed = 45878;
         if (GameManager.seed == 0) GameManager.seed = new Random().Next(1, 999999999);
         int seed = GameManager.seed;
         Random Generator = new Random(seed);
 
-        int nbPlat = Generator.Next(4,10);
+        int nbPlat = Generator.Next(5,12);
         float sizex;
         float sizez;
         float sizey;
@@ -53,6 +54,7 @@ public class meshProc : MonoBehaviour
         float targetRotation = 0;
         sizez = Generator.Next(3, 6);
         float nextSizeZ = sizez;
+        Vector3 raycursor = new Vector3(0,0,0);
         int chaosFrequencyY = Generator.Next(20, 80);
         int chaosFrequencyWidth = Generator.Next(20, 50);
         int chaosFrequencyZ = Generator.Next(10, 50);
@@ -83,6 +85,7 @@ public class meshProc : MonoBehaviour
             {
                 cursorx -= sizex / 2;
                 cursorz -= sizez / 2;
+                raycursor = new Vector3(cursorx, cursory, cursorz+sizez);
             }
 
             //Plateforme du goal
@@ -103,6 +106,7 @@ public class meshProc : MonoBehaviour
 
             //rotation of the mesh from previous platform
             Vector3 vCursor = new Vector3(cursorx + meshandpos.pos.x, cursory + meshandpos.pos.y, cursorz + meshandpos.pos.z);
+            meshandpos.middle = new Vector3(cursorx, cursory, cursorz) + meshandpos.middle;
             Vector3 meshpivot;
             if (targetRotation - cursorRotation < 0)
             {
@@ -115,6 +119,8 @@ public class meshProc : MonoBehaviour
                     meshpivot = new Vector3(cursorx + triangleHeight, cursory, cursorz + triangleWidth);
                     vCursor.x += triangleHeight;
                     vCursor.z = vCursor.z + triangleWidth - sizez;
+                    meshandpos.middle.x += triangleHeight;
+                    meshandpos.middle.z = meshandpos.middle.z + triangleWidth - sizez;
                 }
                 else if(cursorRotation < 0)
                 {
@@ -122,7 +128,10 @@ public class meshProc : MonoBehaviour
                     meshpivot = new Vector3(cursorx - triangleHeight, cursory, cursorz + triangleWidth);
                     vCursor.x -= triangleHeight;
                     vCursor.z = vCursor.z + triangleWidth - sizez;
+                    meshandpos.middle.x -= triangleHeight;
+                    meshandpos.middle.z = meshandpos.middle.z + triangleWidth - sizez;
                 }
+                raycursor = CurrentMeshFilter.transform.position;
             }
             else
             {
@@ -130,8 +139,69 @@ public class meshProc : MonoBehaviour
             }
 
             CurrentMeshFilter.transform.RotateAround(meshpivot, new Vector3(0f, 1f, 0f), targetRotation);
-            Vector3 newCursor = RotatePointAroundPivot(vCursor, meshpivot, new Vector3(0f, targetRotation, 0f));
 
+            if (targetRotation - cursorRotation >=0) raycursor = RotatePointAroundPivot(raycursor, meshpivot, new Vector3(0f, targetRotation - cursorRotation, 0f));
+            else raycursor = RotatePointAroundPivot(raycursor, meshpivot, new Vector3(0f, targetRotation , 0f));
+
+            Vector3 newrayCursor = RotatePointAroundPivot(new Vector3(vCursor.x, vCursor.y, vCursor.z + meshandpos.width), meshpivot, new Vector3(0f, targetRotation, 0f));
+            Vector3 newCursor = RotatePointAroundPivot(vCursor, meshpivot, new Vector3(0f, targetRotation, 0f));
+            meshandpos.middle = RotatePointAroundPivot(meshandpos.middle, meshpivot, new Vector3(0f, targetRotation, 0f));
+
+            //TEST DE COLLISIONS DES PLATEFORME (MAILLAGE)
+            bool isPlatformCollide = false;
+            Vector3 offSet = new Vector3(0, -0.5f, 0);
+            Vector3 ceilingoff = new Vector3(0, 3, 0);
+            Vector3 flooroff = new Vector3(0, -4, 0);
+
+            raycursor = Vector3.MoveTowards(raycursor , meshandpos.middle , 0.3f);
+            meshpivot = Vector3.MoveTowards(meshpivot , meshandpos.middle , 0.3f);
+
+            isPlatformCollide = Physics.Linecast(meshandpos.middle + offSet, meshpivot + offSet)
+                || Physics.Linecast(meshandpos.middle + offSet, raycursor + offSet)
+                || Physics.Linecast(meshandpos.middle + offSet, newCursor + offSet)
+                || Physics.Linecast(meshandpos.middle + offSet, newrayCursor + offSet)
+                || Physics.Linecast(meshandpos.middle, meshandpos.middle + ceilingoff)
+                || Physics.Linecast(meshpivot, meshpivot + ceilingoff)
+                || Physics.Linecast(raycursor, raycursor + ceilingoff)
+                || Physics.Linecast(newCursor, newCursor + ceilingoff)
+                || Physics.Linecast(newrayCursor, newrayCursor + ceilingoff)
+                || Physics.Linecast(meshandpos.middle, meshandpos.middle + flooroff)
+                || Physics.Linecast(meshpivot, meshpivot + flooroff)
+                || Physics.Linecast(raycursor, raycursor + flooroff)
+                || Physics.Linecast(newCursor, newCursor + flooroff)
+                || Physics.Linecast(newrayCursor, newrayCursor + flooroff);
+
+            Debug.DrawLine(meshandpos.middle+ offSet, meshpivot+ offSet, Color.white,200);
+            Debug.DrawLine(meshandpos.middle+ offSet, raycursor+ offSet, Color.white,200);
+            Debug.DrawLine(meshandpos.middle+ offSet, newCursor+ offSet, Color.white, 200);
+            Debug.DrawLine(meshandpos.middle+ offSet, newrayCursor+ offSet, Color.white, 200);
+
+            Debug.DrawLine(raycursor + offSet, newrayCursor + offSet, Color.white, 200);
+            Debug.DrawLine(meshpivot + offSet, newCursor + offSet, Color.white, 200);
+
+            Debug.DrawLine(meshandpos.middle, meshandpos.middle + ceilingoff, Color.white, 200);
+            Debug.DrawLine(meshpivot, meshpivot + ceilingoff, Color.white, 200);
+            Debug.DrawLine(raycursor, raycursor + ceilingoff, Color.white, 200);
+            Debug.DrawLine(newCursor, newCursor + ceilingoff, Color.white, 200);
+            Debug.DrawLine(newrayCursor, newrayCursor + ceilingoff, Color.white, 200);
+
+            Debug.DrawLine(meshandpos.middle, meshandpos.middle + flooroff, Color.white, 200);
+            Debug.DrawLine(meshpivot, meshpivot + flooroff, Color.white, 200);
+            Debug.DrawLine(raycursor, raycursor + flooroff, Color.white, 200);
+            Debug.DrawLine(newCursor, newCursor + flooroff, Color.white, 200);
+            Debug.DrawLine(newrayCursor, newrayCursor + flooroff, Color.white, 200);
+
+            Debug.Log(isPlatformCollide);
+            //Rebouclage si collision
+            if (isPlatformCollide)
+            {
+                Destroy(Currentprefab);
+                i--;
+                if (i == nbPlat - 1) i--;
+                continue;
+            }
+
+            //Ajout du collider
             Currentprefab.AddComponent<MeshCollider>();
 
             //Placement du goal
@@ -148,7 +218,13 @@ public class meshProc : MonoBehaviour
             cursorx = newCursor.x;
             cursory = newCursor.y;
             cursorz = newCursor.z;
-            cursorRotation = targetRotation;  
+            cursorRotation = targetRotation;
+            raycursor = newrayCursor;
+
+            if(cursory-10 < GameManager.fallTresh)
+            {
+                GameManager.fallTresh = cursory - 10;
+            }
         }
 
     }
@@ -171,6 +247,8 @@ public class meshProc : MonoBehaviour
         float y = 0;
         float z = 0;
         float width = 0;
+
+        Vector3 middle = new Vector3(0,0,0);
 
         // remplissage des vertices, normals, uv
         for (int i = 0; i < nSegmentsZ + 1; i++)
@@ -216,6 +294,11 @@ public class meshProc : MonoBehaviour
                     x = pointToPivot.x;
                     z = pointToPivot.z;
                     y = pointToPivot.y;
+                }
+
+                if(i==nSegmentsX/2 && j == nSegmentsZ / 2)
+                {
+                    middle = new Vector3(x, y, z);
                 }
 
                 //UP
@@ -306,7 +389,7 @@ public class meshProc : MonoBehaviour
         mesh.RecalculateNormals();
         mesh.RecalculateTangents();
 
-        MeshAndPos result = new MeshAndPos(mesh, new Vector3(x,y,z-width),width);
+        MeshAndPos result = new MeshAndPos(mesh, new Vector3(x,y,z-width),width,middle);
 
         return result;
     }

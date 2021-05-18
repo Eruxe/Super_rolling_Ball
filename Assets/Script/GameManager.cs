@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public static int lives=9;
     public static float time=0;
     public static int collectible=0;
+    public static float fallTresh = -10;
 
     //SURVIVAL
     public static int seed = 0;
