@@ -55,6 +55,7 @@ public class meshProc : MonoBehaviour
         sizez = Generator.Next(3, 6);
         float nextSizeZ = sizez;
         Vector3 raycursor = new Vector3(0,0,0);
+        int antiFreeze = 0;
         int chaosFrequencyY = Generator.Next(20, 80);
         int chaosFrequencyWidth = Generator.Next(20, 50);
         int chaosFrequencyZ = Generator.Next(10, 50);
@@ -153,53 +154,33 @@ public class meshProc : MonoBehaviour
             Vector3 ceilingoff = new Vector3(0, 3, 0);
             Vector3 flooroff = new Vector3(0, -4, 0);
 
+            Vector3 leftmiddle = Vector3.Lerp(new Vector3(raycursor.x,meshandpos.middle.y, raycursor.z), new Vector3(newrayCursor.x, meshandpos.middle.y, newrayCursor.z), 0.5f);
+            Vector3 rightmiddle = Vector3.Lerp(new Vector3(meshpivot.x, meshandpos.middle.y, meshpivot.z), new Vector3(newCursor.x, meshandpos.middle.y, newCursor.z), 0.5f);
+            Vector3 Zdiff = meshandpos.middle - Vector3.Lerp(new Vector3(meshpivot.x, meshandpos.middle.y, meshpivot.z), new Vector3(newrayCursor.x, meshandpos.middle.y, newrayCursor.z),0.5f);
+
+            if (targetRotation - cursorRotation < 0)
+            {
+                leftmiddle = Vector3.Lerp(new Vector3(meshpivot.x, meshandpos.middle.y, meshpivot.z), new Vector3(newrayCursor.x, meshandpos.middle.y, newrayCursor.z), 0.5f);
+                rightmiddle = Vector3.Lerp(new Vector3(raycursor.x, meshandpos.middle.y, raycursor.z), new Vector3(newCursor.x, meshandpos.middle.y, newCursor.z), 0.5f);
+                Zdiff = meshandpos.middle - Vector3.Lerp(new Vector3(meshpivot.x, meshandpos.middle.y, meshpivot.z), new Vector3(newCursor.x, meshandpos.middle.y, newCursor.z), 0.5f);
+            }
+
             raycursor = Vector3.MoveTowards(raycursor , meshandpos.middle , 0.3f);
             meshpivot = Vector3.MoveTowards(meshpivot , meshandpos.middle , 0.3f);
 
-            isPlatformCollide = Physics.Linecast(meshandpos.middle + offSet, meshpivot + offSet)
-                || Physics.Linecast(meshandpos.middle + offSet, raycursor + offSet)
-                || Physics.Linecast(meshandpos.middle + offSet, newCursor + offSet)
-                || Physics.Linecast(meshandpos.middle + offSet, newrayCursor + offSet)
-                || Physics.Linecast(meshandpos.middle, meshandpos.middle + ceilingoff)
-                || Physics.Linecast(meshpivot, meshpivot + ceilingoff)
-                || Physics.Linecast(raycursor, raycursor + ceilingoff)
-                || Physics.Linecast(newCursor, newCursor + ceilingoff)
-                || Physics.Linecast(newrayCursor, newrayCursor + ceilingoff)
-                || Physics.Linecast(meshandpos.middle, meshandpos.middle + flooroff)
-                || Physics.Linecast(meshpivot, meshpivot + flooroff)
-                || Physics.Linecast(raycursor, raycursor + flooroff)
-                || Physics.Linecast(newCursor, newCursor + flooroff)
-                || Physics.Linecast(newrayCursor, newrayCursor + flooroff);
+            isPlatformCollide = CollisionMaillage(meshandpos, offSet, meshpivot, raycursor, newCursor, newrayCursor, ceilingoff, flooroff, rightmiddle, leftmiddle, Zdiff, targetRotation, cursorRotation);
+            DebugMaillage(meshandpos, offSet, meshpivot, raycursor, newCursor, newrayCursor, ceilingoff, flooroff, rightmiddle, leftmiddle, Zdiff, targetRotation, cursorRotation, isPlatformCollide);
 
-            Debug.DrawLine(meshandpos.middle+ offSet, meshpivot+ offSet, Color.white,200);
-            Debug.DrawLine(meshandpos.middle+ offSet, raycursor+ offSet, Color.white,200);
-            Debug.DrawLine(meshandpos.middle+ offSet, newCursor+ offSet, Color.white, 200);
-            Debug.DrawLine(meshandpos.middle+ offSet, newrayCursor+ offSet, Color.white, 200);
-
-            Debug.DrawLine(raycursor + offSet, newrayCursor + offSet, Color.white, 200);
-            Debug.DrawLine(meshpivot + offSet, newCursor + offSet, Color.white, 200);
-
-            Debug.DrawLine(meshandpos.middle, meshandpos.middle + ceilingoff, Color.white, 200);
-            Debug.DrawLine(meshpivot, meshpivot + ceilingoff, Color.white, 200);
-            Debug.DrawLine(raycursor, raycursor + ceilingoff, Color.white, 200);
-            Debug.DrawLine(newCursor, newCursor + ceilingoff, Color.white, 200);
-            Debug.DrawLine(newrayCursor, newrayCursor + ceilingoff, Color.white, 200);
-
-            Debug.DrawLine(meshandpos.middle, meshandpos.middle + flooroff, Color.white, 200);
-            Debug.DrawLine(meshpivot, meshpivot + flooroff, Color.white, 200);
-            Debug.DrawLine(raycursor, raycursor + flooroff, Color.white, 200);
-            Debug.DrawLine(newCursor, newCursor + flooroff, Color.white, 200);
-            Debug.DrawLine(newrayCursor, newrayCursor + flooroff, Color.white, 200);
-
-            Debug.Log(isPlatformCollide);
             //Rebouclage si collision
-            if (isPlatformCollide)
+            if (isPlatformCollide && antiFreeze<30)
             {
                 Destroy(Currentprefab);
-                i--;
                 if (i == nbPlat - 1) i--;
+                i--;
+                antiFreeze++;
                 continue;
             }
+            antiFreeze = 0;
 
             //Ajout du collider
             Currentprefab.AddComponent<MeshCollider>();
@@ -400,6 +381,135 @@ public class meshProc : MonoBehaviour
         v = Quaternion.Euler(angles.x,angles.y,angles.z) * v; //rotatate
         v = pivot + v; //bring back to world space
         return v;
+    }
+
+    public void DebugMaillage(MeshAndPos meshandpos, Vector3 offSet, Vector3 meshpivot, Vector3 raycursor, Vector3 newCursor, Vector3 newrayCursor, Vector3 ceilingoff, Vector3 flooroff, Vector3 rightmiddle, Vector3 leftmiddle, Vector3 Zdiff, float targetRotation, float cursorRotation, bool isPlatformCollide)
+    {
+        Color c= Color.white;
+        if (isPlatformCollide) c = Color.red;
+
+        //GRILLE
+        Debug.DrawLine(meshandpos.middle + offSet, meshpivot + offSet, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet, raycursor + offSet, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet, newCursor + offSet, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet, newrayCursor + offSet, c, 200);
+
+        Debug.DrawLine(meshandpos.middle + offSet + ceilingoff, meshpivot + offSet + ceilingoff, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet + ceilingoff, raycursor + offSet + ceilingoff, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet + ceilingoff, newCursor + offSet + ceilingoff, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet + ceilingoff, newrayCursor + offSet + ceilingoff, c, 200);
+
+        Debug.DrawLine(meshandpos.middle + offSet + flooroff, meshpivot + offSet + flooroff, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet + flooroff, raycursor + offSet + flooroff, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet + flooroff, newCursor + offSet + flooroff, c, 200);
+        Debug.DrawLine(meshandpos.middle + offSet + flooroff, newrayCursor + offSet + flooroff, c, 200);
+
+        //LIGNES SUR LE COTE
+        if (targetRotation - cursorRotation < 0)
+        {
+            Debug.DrawLine(rightmiddle + offSet + Zdiff, raycursor + offSet, c, 200);
+            Debug.DrawLine(leftmiddle + offSet + Zdiff, meshpivot + offSet, c, 200);
+
+            Debug.DrawLine(rightmiddle + offSet + Zdiff + ceilingoff, raycursor + offSet + ceilingoff, c, 200);
+            Debug.DrawLine(leftmiddle + offSet + Zdiff + ceilingoff, meshpivot + offSet + ceilingoff, c, 200);
+
+            Debug.DrawLine(rightmiddle + offSet + Zdiff + flooroff, raycursor + offSet + flooroff, c, 200);
+            Debug.DrawLine(leftmiddle + offSet + Zdiff + flooroff, meshpivot + offSet + flooroff, c, 200);
+        }
+        else
+        {
+            Debug.DrawLine(rightmiddle + offSet + Zdiff, meshpivot + offSet, c, 200);
+            Debug.DrawLine(leftmiddle + offSet + Zdiff, raycursor + offSet, c, 200);
+
+            Debug.DrawLine(rightmiddle + offSet + Zdiff + ceilingoff, meshpivot + offSet + ceilingoff, c, 200);
+            Debug.DrawLine(leftmiddle + offSet + Zdiff + ceilingoff, raycursor + offSet + ceilingoff, c, 200);
+
+            Debug.DrawLine(rightmiddle + offSet + Zdiff + flooroff, meshpivot + offSet + flooroff, c, 200);
+            Debug.DrawLine(leftmiddle + offSet + Zdiff + flooroff, raycursor + offSet + flooroff, c, 200);
+        }
+
+        Debug.DrawLine(rightmiddle + offSet + Zdiff, newCursor + offSet, c, 200);
+        Debug.DrawLine(leftmiddle + offSet + Zdiff, newrayCursor + offSet, c, 200);
+
+        Debug.DrawLine(rightmiddle + offSet + Zdiff + ceilingoff, newCursor + offSet + ceilingoff, c, 200);
+        Debug.DrawLine(leftmiddle + offSet + Zdiff + ceilingoff, newrayCursor + offSet + ceilingoff, c, 200);
+
+        Debug.DrawLine(rightmiddle + offSet + Zdiff + flooroff, newCursor + offSet + flooroff, c, 200);
+        Debug.DrawLine(leftmiddle + offSet + Zdiff + flooroff, newrayCursor + offSet + flooroff, c, 200);
+
+        //LIGNES VERTICALES
+        Debug.DrawLine(meshandpos.middle + flooroff + offSet, meshandpos.middle + ceilingoff + offSet, c, 200);
+        Debug.DrawLine(meshpivot + flooroff + offSet, meshpivot + ceilingoff + offSet, c, 200);
+        Debug.DrawLine(raycursor + flooroff + offSet, raycursor + ceilingoff + offSet, c, 200);
+        Debug.DrawLine(newCursor + flooroff + offSet, newCursor + ceilingoff + offSet, c, 200);
+        Debug.DrawLine(newrayCursor + flooroff + offSet, newrayCursor + ceilingoff + offSet, c, 200);
+        Debug.DrawLine(rightmiddle + offSet + Zdiff + flooroff, rightmiddle + offSet + Zdiff + ceilingoff, c, 200);
+        Debug.DrawLine(leftmiddle + offSet + Zdiff + flooroff, leftmiddle + offSet + Zdiff + ceilingoff, c, 200);
+    }
+
+    public bool CollisionMaillage(MeshAndPos meshandpos, Vector3 offSet, Vector3 meshpivot, Vector3 raycursor, Vector3 newCursor, Vector3 newrayCursor, Vector3 ceilingoff, Vector3 flooroff, Vector3 rightmiddle, Vector3 leftmiddle, Vector3 Zdiff, float targetRotation, float cursorRotation)
+    {
+        bool result = false;
+
+        //GRILLE
+        result |= Physics.Linecast(meshandpos.middle + offSet, meshpivot + offSet);
+        result |= Physics.Linecast(meshandpos.middle + offSet, raycursor + offSet);
+        result |= Physics.Linecast(meshandpos.middle + offSet, newCursor + offSet);
+        result |= Physics.Linecast(meshandpos.middle + offSet, newrayCursor + offSet);
+
+        result |= Physics.Linecast(meshandpos.middle + offSet + ceilingoff, meshpivot + offSet + ceilingoff);
+        result |= Physics.Linecast(meshandpos.middle + offSet + ceilingoff, raycursor + offSet + ceilingoff);
+        result |= Physics.Linecast(meshandpos.middle + offSet + ceilingoff, newCursor + offSet + ceilingoff);
+        result |= Physics.Linecast(meshandpos.middle + offSet + ceilingoff, newrayCursor + offSet + ceilingoff);
+
+        result |= Physics.Linecast(meshandpos.middle + offSet + flooroff, meshpivot + offSet + flooroff);
+        result |= Physics.Linecast(meshandpos.middle + offSet + flooroff, raycursor + offSet + flooroff);
+        result |= Physics.Linecast(meshandpos.middle + offSet + flooroff, newCursor + offSet + flooroff);
+        result |= Physics.Linecast(meshandpos.middle + offSet + flooroff, newrayCursor + offSet + flooroff);
+
+        //LIGNES SUR LE COTE
+        if (targetRotation - cursorRotation < 0)
+        {
+            result |= Physics.Linecast(rightmiddle + offSet + Zdiff, raycursor + offSet);
+            result |= Physics.Linecast(leftmiddle + offSet + Zdiff, meshpivot + offSet);
+
+            result |= Physics.Linecast(rightmiddle + offSet + Zdiff + ceilingoff, raycursor + offSet + ceilingoff);
+            result |= Physics.Linecast(leftmiddle + offSet + Zdiff + ceilingoff, meshpivot + offSet + ceilingoff);
+
+            result |= Physics.Linecast(rightmiddle + offSet + Zdiff + flooroff, raycursor + offSet + flooroff);
+            result |= Physics.Linecast(leftmiddle + offSet + Zdiff + flooroff, meshpivot + offSet + flooroff);
+        }
+        else
+        {
+            result |= Physics.Linecast(rightmiddle + offSet + Zdiff, meshpivot + offSet);
+            result |= Physics.Linecast(leftmiddle + offSet + Zdiff, raycursor + offSet);
+
+            result |= Physics.Linecast(rightmiddle + offSet + Zdiff + ceilingoff, meshpivot + offSet + ceilingoff);
+            result |= Physics.Linecast(leftmiddle + offSet + Zdiff + ceilingoff, raycursor + offSet + ceilingoff);
+
+            result |= Physics.Linecast(rightmiddle + offSet + Zdiff + flooroff, meshpivot + offSet + flooroff);
+            result |= Physics.Linecast(leftmiddle + offSet + Zdiff + flooroff, raycursor + offSet + flooroff);
+        }
+
+        result |= Physics.Linecast(rightmiddle + offSet + Zdiff, newCursor + offSet);
+        result |= Physics.Linecast(leftmiddle + offSet + Zdiff, newrayCursor + offSet);
+
+        result |= Physics.Linecast(rightmiddle + offSet + Zdiff + ceilingoff, newCursor + offSet + ceilingoff);
+        result |= Physics.Linecast(leftmiddle + offSet + Zdiff + ceilingoff, newrayCursor + offSet + ceilingoff);
+
+        result |= Physics.Linecast(rightmiddle + offSet + Zdiff + flooroff, newCursor + offSet + flooroff);
+        result |= Physics.Linecast(leftmiddle + offSet + Zdiff + flooroff, newrayCursor + offSet + flooroff);
+
+        //LIGNES VERTICALES
+        result |= Physics.Linecast(meshandpos.middle + flooroff + offSet, meshandpos.middle + ceilingoff + offSet);
+        result |= Physics.Linecast(meshpivot + flooroff + offSet, meshpivot + ceilingoff + offSet);
+        result |= Physics.Linecast(raycursor + flooroff + offSet, raycursor + ceilingoff + offSet);
+        result |= Physics.Linecast(newCursor + flooroff + offSet, newCursor + ceilingoff + offSet);
+        result |= Physics.Linecast(newrayCursor + flooroff + offSet, newrayCursor + ceilingoff + offSet);
+        result |= Physics.Linecast(rightmiddle + offSet + Zdiff + flooroff, rightmiddle + offSet + Zdiff + ceilingoff);
+        result |= Physics.Linecast(leftmiddle + offSet + Zdiff + flooroff, leftmiddle + offSet + Zdiff + ceilingoff);
+
+        return result;
     }
 
     // Update is called once per frame
