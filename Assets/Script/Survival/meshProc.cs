@@ -169,7 +169,7 @@ public class meshProc : MonoBehaviour
             meshpivot = Vector3.MoveTowards(meshpivot , meshandpos.middle , 0.3f);
 
             isPlatformCollide = CollisionMaillage(meshandpos, offSet, meshpivot, raycursor, newCursor, newrayCursor, ceilingoff, flooroff, rightmiddle, leftmiddle, Zdiff, targetRotation, cursorRotation);
-            DebugMaillage(meshandpos, offSet, meshpivot, raycursor, newCursor, newrayCursor, ceilingoff, flooroff, rightmiddle, leftmiddle, Zdiff, targetRotation, cursorRotation, isPlatformCollide);
+            //DebugMaillage(meshandpos, offSet, meshpivot, raycursor, newCursor, newrayCursor, ceilingoff, flooroff, rightmiddle, leftmiddle, Zdiff, targetRotation, cursorRotation, isPlatformCollide);
 
             //Rebouclage si collision
             if (isPlatformCollide && antiFreeze<30)
