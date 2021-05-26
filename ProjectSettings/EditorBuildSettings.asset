@@ -78,6 +78,9 @@ EditorBuildSettings:
     path: Assets/Scenes/03 Expert/Modif/Downhill.unity
     guid: e92ea0ea63ca05c4fa75e9bea135809b
   - enabled: 1
+    path: Assets/Scenes/03 Expert/Modif/Flipper.unity
+    guid: d25c48f19daa1a24eb306e9d55f1e3b1
+  - enabled: 1
     path: Assets/Scenes/03 Expert/Modif/SpaceStation.unity
     guid: 4c5bf6dccd9ecc2498ab91b7c1162a38
   - enabled: 1

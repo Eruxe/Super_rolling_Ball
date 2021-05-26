@@ -106,6 +106,7 @@ public class meshProc : MonoBehaviour
 
 
             //rotation of the mesh from previous platform
+            Vector3 saveRayCursor = raycursor;
             Vector3 vCursor = new Vector3(cursorx + meshandpos.pos.x, cursory + meshandpos.pos.y, cursorz + meshandpos.pos.z);
             meshandpos.middle = new Vector3(cursorx, cursory, cursorz) + meshandpos.middle;
             Vector3 meshpivot;
@@ -140,9 +141,8 @@ public class meshProc : MonoBehaviour
             }
 
             CurrentMeshFilter.transform.RotateAround(meshpivot, new Vector3(0f, 1f, 0f), targetRotation);
-
             if (targetRotation - cursorRotation >=0) raycursor = RotatePointAroundPivot(raycursor, meshpivot, new Vector3(0f, targetRotation - cursorRotation, 0f));
-            else raycursor = RotatePointAroundPivot(raycursor, meshpivot, new Vector3(0f, targetRotation , 0f));
+            else raycursor = RotatePointAroundPivot(raycursor, meshpivot, new Vector3(0f, targetRotation, 0f));
 
             Vector3 newrayCursor = RotatePointAroundPivot(new Vector3(vCursor.x, vCursor.y, vCursor.z + meshandpos.width), meshpivot, new Vector3(0f, targetRotation, 0f));
             Vector3 newCursor = RotatePointAroundPivot(vCursor, meshpivot, new Vector3(0f, targetRotation, 0f));
@@ -172,9 +172,10 @@ public class meshProc : MonoBehaviour
             //DebugMaillage(meshandpos, offSet, meshpivot, raycursor, newCursor, newrayCursor, ceilingoff, flooroff, rightmiddle, leftmiddle, Zdiff, targetRotation, cursorRotation, isPlatformCollide);
 
             //Rebouclage si collision
-            if (isPlatformCollide && antiFreeze<30)
+            if (isPlatformCollide && antiFreeze<100)
             {
                 Destroy(Currentprefab);
+                raycursor = saveRayCursor;
                 if (i == nbPlat - 1) i--;
                 i--;
                 antiFreeze++;

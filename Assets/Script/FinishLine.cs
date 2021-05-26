@@ -20,6 +20,14 @@ public class FinishLine : MonoBehaviour
         {
             switch (Number)
             {
+                case 0:
+                    GameManager.portal_1_current = true;
+                    GameManager.portal_1 = true;
+                    GameManager.portal_2_current = true;
+                    GameManager.portal_2 = true;
+                    GameManager.portal_3_current = true;
+                    GameManager.portal_3 = true;
+                    break;
                 case 1:
                     GameManager.portal_1_current = true;
                     GameManager.portal_1 = true;
@@ -43,6 +51,11 @@ public class FinishLine : MonoBehaviour
         {
             switch (Number)
             {
+                case 0:
+                    GameManager.portal_1_current = false;
+                    GameManager.portal_2_current = false;
+                    GameManager.portal_3_current = false;
+                    break;
                 case 1:
                     GameManager.portal_1_current = false;
                     break;
